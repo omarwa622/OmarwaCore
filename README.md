@@ -1,5 +1,9 @@
 # OmarwaCore
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXX)
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Lean 4](https://img.shields.io/badge/Lean_4-v4.29.0--rc3-orange.svg)](https://leanprover.github.io/)
+
 **Lean 4 Formalization of the OMARWA Sequence $T_k = 6 \cdot 2^k + 1$ (OEIS [A004119](https://oeis.org/A004119))**
 
 | Metric | Value |
