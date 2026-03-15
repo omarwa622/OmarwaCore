@@ -27,8 +27,12 @@
   "version": "1.0.0",
   "language": "eng",
   "communities": [
-    {"identifier": "mathematics"},
-    {"identifier": "zenodo"}
+    {
+      "identifier": "mathematics"
+    },
+    {
+      "identifier": "zenodo"
+    }
   ],
   "related_identifiers": [
     {
