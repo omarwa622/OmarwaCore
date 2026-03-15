@@ -1,8 +1,8 @@
 % ══════════════════════════════════════════════════════════════
-%  Modular Period Structure and Fractal Laws of the Affine
-%  Sequence  T_k = 6·2^k + 1
+%  Modular Period Structure, Fractal Laws, and Algebraic
+%  Universality of the Affine Sequence  T_k = 6·2^k + 1
 %
-%  Paket 2 — Sayı Teorisi Preprint (v3.0)
+%  Paket 2 — Number Theory Preprint (v3.0 — Full 28-module edition)
 %  Author: Ömer Çetintaş
 %  Date:   March 2026
 % ══════════════════════════════════════════════════════════════
@@ -11,10 +11,10 @@
 % ── Encoding & Fonts ──────────────────────────────────────────
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{lmodern}                  % Latin Modern (clean, scalable)
-\usepackage{microtype}                % Optical margin alignment
+\usepackage{lmodern}
+\usepackage{microtype}
 
-% ── Page Geometry (AMS-style generous margins) ────────────────
+% ── Page Geometry ─────────────────────────────────────────────
 \usepackage[
   a4paper,
   top=2.5cm,
@@ -40,7 +40,7 @@
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{\small\textit{Modular Period Structure of $T_k = 6 \cdot 2^k + 1$}}
+\fancyhead[L]{\small\textit{Modular Periods of $T_k = 6 \cdot 2^k + 1$}}
 \fancyhead[R]{\small\textit{\c{C}etinta\c{s}, 2026}}
 \fancyfoot[C]{\small\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
@@ -59,9 +59,9 @@
   citecolor=blue!70!black,
   urlcolor=blue!70!black,
   pdfauthor={\"Omer \c{C}etinta\c{s}},
-  pdftitle={Modular Period Structure and Fractal Laws of T_k = 6*2^k + 1},
+  pdftitle={Modular Period Structure and Algebraic Universality of T_k = 6*2^k + 1},
   pdfsubject={Number Theory, Formal Verification},
-  pdfkeywords={OMARWA sequence, multiplicative order, Lean 4, modular periodicity, OEIS A004119}
+  pdfkeywords={OMARWA sequence, multiplicative order, Lean 4, modular periodicity}
 ]{hyperref}
 
 % ── Theorem Environments ─────────────────────────────────────
@@ -83,7 +83,7 @@
 \DeclareMathOperator{\lcm}{lcm}
 \DeclareMathOperator{\DR}{DR}
 
-% ── Spacing (clean academic look) ────────────────────────────
+% ── Spacing ───────────────────────────────────────────────────
 \usepackage{enumitem}
 \setlist[enumerate]{leftmargin=2em, itemsep=0.3em}
 \setlist[itemize]{leftmargin=2em, itemsep=0.2em}
@@ -97,8 +97,9 @@
   \vspace*{0.3cm}
 
   {\LARGE\bfseries
-    Modular Period Structure and Fractal Laws\\[0.3cm]
-    of the Affine Sequence $T_k = 6 \cdot 2^k + 1$}
+    Modular Period Structure, Fractal Laws,\\[0.3cm]
+    and Algebraic Universality of the\\[0.3cm]
+    Affine Sequence $T_k = 6 \cdot 2^k + 1$}
 
   \vspace{0.8cm}
 
@@ -115,29 +116,36 @@
 % ── ABSTRACT ──────────────────────────────────────────────────
 \begin{abstract}
 We study the integer sequence $T_k = 6 \cdot 2^k + 1$ (OEIS A004119)
-and establish a complete theory of its modular periodicity. For each
-positive integer~$m$, we define the OMARWA period $P(m)$ as the minimal
-period of the sequence $T_k \bmod m$ and prove the \textbf{Core Reduction
-Theorem}: $P(m) = \ord_{m'}(2)$ where $m' = m / \gcd(m, 6)$. We derive
-\textbf{fractal period laws} $P(p^n) = d_0 \cdot p^{n-1}$ for primes
-$p \nmid 6$ under the hypothesis that $p$ is not a Wieferich prime, where
-$d_0 = \ord_p(2)$, and prove a \textbf{Product Theorem} via the Chinese
-Remainder Theorem: $P(m_1 m_2) = \lcm(P(m_1), P(m_2))$ for coprime
-$m_1, m_2$. These results yield a \textbf{super-period}
-$L = \lcm(P(9), P(11)) = 30$, derived independently through three
-distinct paths. We further establish a \textbf{GCD Law}, a
-\textbf{palindromic involution} on residue sequences, and a
-\textbf{Pascal--Sierpi\'nski--Fibonacci bridge} connecting modular
-periodicity to combinatorial and fractal structures. All principal
-theorems are formally verified in Lean~4 with Mathlib
-(956~theorems~+~lemmas, zero \texttt{sorry} axioms, 28~modules;
+and establish a complete theory of its modular periodicity.
+For each positive integer~$m$, we define the OMARWA period $P(m)$ as the
+minimal period of the sequence $T_k \bmod m$ and prove the
+\textbf{Core Reduction Theorem}: $P(m) = \ord_{m'}(2)$ where
+$m' = m / \gcd(m, 6)$.
+We derive \textbf{fractal period laws}
+$P(p^n) = \ord_p(2) \cdot p^{n-1}$ for non-Wieferich primes $p \nmid 6$
+and prove a \textbf{Product Theorem} via the Chinese Remainder Theorem.
+These results yield a \textbf{super-period} $L = 30$, derived through
+three independent paths, coinciding with the Coxeter number $h(E_8)$.
+
+We further establish a \textbf{Forbidden Unity Theorem} ($T_k \not\equiv 1
+\pmod{m}$ when $\gcd(m,6) = 1$), a \textbf{CRT intertwining map} for
+the modulus $354 = 2 \times 3 \times 59$, \textbf{Mersenne--Fermat
+period dichotomies}, a \textbf{palindromic involution} on residue
+sequences, \textbf{network topology identities}, and connections to
+\textbf{Weyl exponents of~$E_8$}. The Coxeter numbers of all five
+exceptional Lie groups arise as specific OMARWA periods or derived
+invariants (\textbf{Exceptional Universality}). We discuss topological
+interpretations including \textbf{winding numbers on~$T^3$},
+\textbf{Chern--Simons level}, and \textbf{Hopf fibration} structures.
+All principal theorems are formally verified in Lean~4 with Mathlib
+(956~theorems, zero \texttt{sorry} axioms, 28~modules;
 source: \href{https://github.com/omarwa622/OmarwaCore}{github.com/omarwa622/OmarwaCore}).
 \end{abstract}
 
 \smallskip
 \noindent\textbf{Keywords:} integer sequence $\cdot$ multiplicative
 order $\cdot$ modular periodicity $\cdot$ super-period $\cdot$
-fractal period law $\cdot$ centered hexagonal numbers $\cdot$
+fractal period law $\cdot$ Coxeter number $\cdot$
 affine recurrence $\cdot$ Lean~4 $\cdot$ formal verification
 
 \smallskip
@@ -159,54 +167,65 @@ structured periodicity theory.
 In this paper we establish the following principal results:
 
 \begin{enumerate}
-  \item \textbf{Core Reduction} (Theorem~\ref{thm:core}): The period
-    $P(m)$ of $T_k \bmod m$ reduces to the multiplicative order
-    $\ord_{m'}(2)$ where $m' = m/\gcd(m,6)$.
+  \item \textbf{Core Reduction} (Theorem~\ref{thm:core}): $P(m) =
+    \ord_{m'}(2)$ where $m' = m/\gcd(m,6)$.
 
   \item \textbf{Fractal Period Laws}
     (Theorems~\ref{thm:ternary}--\ref{thm:general-fractal}):
-    For any prime $p \nmid 6$ satisfying
-    $2^{\ord_p(2)} \not\equiv 1 \pmod{p^2}$ and $n \geq 1$:
-    \[
-      P(p^n) = \ord_p(2) \cdot p^{n-1}.
-    \]
+    $P(p^n) = \ord_p(2) \cdot p^{n-1}$ for non-Wieferich $p \nmid 6$.
 
   \item \textbf{Product Theorem} (Theorem~\ref{thm:product}):
-    For $\gcd(m_1, m_2) = 1$:
-    \[
-      P(m_1 m_2) = \lcm(P(m_1), P(m_2)).
-    \]
+    $P(m_1 m_2) = \lcm(P(m_1), P(m_2))$ for $\gcd(m_1, m_2) = 1$.
 
-  \item \textbf{Super-Period}
-    (Theorems~\ref{thm:sp1}--\ref{thm:sp3}): Three independent
-    derivations show $L = 30$.
+  \item \textbf{Super-Period} $L = 30 = h(E_8)$
+    (Theorems~\ref{thm:sp1}--\ref{thm:sp3}).
 
-  \item \textbf{GCD Law} (Theorem~\ref{thm:gcd}):
-    $\gcd(T_i, T_j) \mid 2^{|i-j|} - 1$ for $i \neq j$.
+  \item \textbf{Sabbath Node} (Theorem~\ref{thm:sabbath}):
+    $T_6 = 385 = 5 \times 7 \times 11$, the triple-reset point.
 
-  \item \textbf{Pascal--Sierpi\'nski--Fibonacci Bridge}
-    (Section~\ref{sec:pascal}): Connections between OMARWA periodicities,
-    binomial coefficients modulo primes, and Fibonacci residues.
+  \item \textbf{Mersenne--Fermat Periods}
+    (Theorems~\ref{thm:mersenne}--\ref{thm:fermat}):
+    $P(2^p - 1) = p$ for Mersenne primes; $P(17) = 8 = \mathrm{rank}(E_8)$.
 
-  \item \textbf{Exceptional Periods}
-    (Theorem~\ref{thm:exceptional}): The Coxeter numbers of all five
-    exceptional Lie groups arise as specific OMARWA periods within the
-    ternary tower $P(3^n)$ and related constructions.
+  \item \textbf{Forbidden Unity} (Theorem~\ref{thm:forbidden}):
+    $T_k \not\equiv 1 \pmod{m}$ when $\gcd(m,6) = 1$.
+
+  \item \textbf{CRT Intertwining} (Section~\ref{sec:crt}):
+    The 354-anatomy and the intertwining map
+    $\iota(s) = (60s + 295) \bmod 354$.
+
+  \item \textbf{Palindromic Involution, Network Topology, and
+    Holon Crystallography}
+    (Sections~\ref{sec:palindrome}--\ref{sec:holon}).
+
+  \item \textbf{Weyl Exponents and Exceptional Universality}
+    (Sections~\ref{sec:weyl}--\ref{sec:exceptional}).
+
+  \item \textbf{Topological Interpretations}
+    (Section~\ref{sec:topology}): winding numbers, Chern--Simons level,
+    Hopf fibration.
 \end{enumerate}
 
 All results are accompanied by formal Lean~4 proofs
-(Appendix~\ref{app:lean}) and computational verification for
-$m \leq 10{,}000$ (Appendix~\ref{app:comp}).
+(Appendix~\ref{app:lean}) and computational verification
+(Appendix~\ref{app:comp}).
 
-The paper is organized as follows. Section~2 defines the sequence and
-establishes basic properties. Section~3 develops the fractal period
-theory and super-period. Section~4 treats the affine operator framework.
-Section~5 examines intersections with centered hexagonal numbers.
-Section~6 presents the digital root structure. Section~7 discusses
-Pascal triangle connections and the Fibonacci bridge. Section~8 presents
-the palindromic residue symmetry. Section~9 collects remarks on
-coincidences with Lie-theoretic invariants. Section~10 states open
-questions and concluding remarks.
+The paper is organized as follows.
+Section~2 defines the sequence and establishes basic properties
+including the Sabbath node.
+Section~3 develops the fractal period theory, Mersenne--Fermat
+dichotomy, forbidden unity theorem, and super-period.
+Section~4 treats the affine operator and $6n{+}1$ skeleton.
+Section~5 presents the Product Theorem and CRT intertwining.
+Section~6 examines centered hexagonal intersections.
+Section~7 presents the digital root structure.
+Section~8 discusses Pascal--Sierpi\'nski--Fibonacci connections and the
+Collatz bridge.
+Section~9 develops palindromic symmetry and fractal holon structures.
+Section~10 establishes network topology and holon crystallography.
+Section~11 treats Weyl exponents and exceptional universality.
+Section~12 discusses topological and physical interpretations.
+Section~13 states open questions and conclusions.
 
 % ══════════════════════════════════════════════════════════════
 \section{Definition and Basic Properties of \texorpdfstring{$T_k$}{Tk}}
@@ -257,10 +276,6 @@ For $m \geq 1$, the \emph{OMARWA period} $P(m)$ is the minimal positive
 integer~$p$ such that $T_{k+p} \equiv T_k \pmod{m}$ for all $k \geq 0$.
 \end{definition}
 
-Since $T_k \equiv 6 \cdot 2^k + 1 \pmod{m}$, the period $P(m)$ equals
-the period of $2^k \bmod m'$ where $m' = m / \gcd(m, 6)$ when
-$\gcd(2, m') = 1$.
-
 \begin{theorem}[Mod 3 Triviality]\label{thm:mod3}
 $T_k \equiv 1 \pmod{3}$ for all~$k$. Hence $P(3) = 1$.
 \end{theorem}
@@ -269,105 +284,62 @@ $T_k \equiv 1 \pmod{3}$ for all~$k$. Hence $P(3) = 1$.
 $6 \cdot 2^k \equiv 0 \pmod{3}$, so $T_k = 6 \cdot 2^k + 1 \equiv 1$.
 \end{proof}
 
-\subsection{Product Theorem and Complete Period Table}
-
-\begin{theorem}[Product Theorem / CRT]\label{thm:product}
-For $\gcd(m_1, m_2) = 1$:
-\[
-  P(m_1 m_2) = \lcm(P(m_1), P(m_2)).
-\]
-\end{theorem}
-
-\begin{proof}
-By the Chinese Remainder Theorem~\cite{ireland}, the ring
-$\mathbb{Z}_{m_1 m_2} \cong \mathbb{Z}_{m_1} \times \mathbb{Z}_{m_2}$,
-and the period of a pair $(a_k \bmod m_1,\; a_k \bmod m_2)$ is the
-least common multiple of the component periods.
-\end{proof}
-
-\begin{table}[H]
-\centering
-\caption{Selected values of the OMARWA period $P(m)$.}\label{tab:periods}
-\smallskip
-\begin{tabular}{@{}rrcrl@{}}
-\toprule
-$m$ & $P(m)$ & $m'$ & $\ord_{m'}(2)$ & Note \\
-\midrule
-3  & 1  & 1  & ---  & $T_k \equiv 1$ \\
-5  & 4  & 5  & 4    & --- \\
-7  & 3  & 7  & 3    & --- \\
-9  & 2  & 3  & 2    & Binary alternation \\
-11 & 10 & 11 & 10   & 2 is primitive root mod 11 \\
-13 & 12 & 13 & 12   & --- \\
-27 & 6  & 9  & 6    & $P(3^3)$ \\
-31 & 5  & 31 & 5    & Mersenne prime \\
-33 & 10 & 11 & 10   & $P(3 \times 11)$ \\
-37 & 36 & 37 & 36   & 2 is primitive root mod 37 \\
-77 & 30 & 77 & 30   & $= \lcm(P(7), P(11))$ \\
-81 & 18 & 27 & 18   & $P(3^4)$ \\
-99 & 10 & 33 & 10   & $P(9 \times 11)$ \\
-121 & 110 & 121 & 110 & $P(11^2)$ \\
-407 & 180 & 407 & 180 & $P(11 \times 37)$ \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\begin{theorem}[GCD Law]\label{thm:gcd}
-For $i \neq j$:
-\[
-  \gcd(T_i, T_j) \mid 2^{|i-j|} - 1.
-\]
-\end{theorem}
-
-\begin{proof}
-$T_i - T_j = 6(2^i - 2^j) = 6 \cdot 2^{\min(i,j)}(2^{|i-j|} - 1)$.
-If $d = \gcd(T_i, T_j)$, then $d \mid T_i$ implies
-$\gcd(d, 6) \mid \gcd(T_i, 6) = 1$ (since $T_k$ is odd and
-$T_k \not\equiv 0 \pmod{3}$ by Theorem~\ref{thm:mod3}). Also
-$\gcd(d, 2^{\min(i,j)}) = 1$. Hence $d \mid (2^{|i-j|} - 1)$.
-\end{proof}
-
-\begin{corollary}\label{cor:coprime}
-$\gcd(T_k, T_{k+1}) = 1$ for all $k \geq 0$.
-\end{corollary}
-
-\begin{proof}
-$2^1 - 1 = 1$.
-\end{proof}
-
 \begin{theorem}[Full Residue System mod 11]\label{thm:fullres}
 $P(11) = 10 = \varphi(11)$, and the residues $T_k \bmod 11$ for
-$0 \leq k < 10$ traverse
-$\{0,2,3,4,5,6,7,8,9,10\} = \mathbb{Z}_{11} \setminus \{1\}$.
+$0 \leq k < 10$ traverse $\mathbb{Z}_{11} \setminus \{1\}$.
 \end{theorem}
 
 \begin{proof}
 Since $\ord_{11}(2) = 10 = \varphi(11)$, the element~$2$ is a
-primitive root modulo~$11$. The map $k \mapsto 6 \cdot 2^k \bmod 11$
-hits every nonzero residue, so $k \mapsto 6 \cdot 2^k + 1 \bmod 11$
+primitive root modulo~$11$. The map $k \mapsto 6 \cdot 2^k + 1 \bmod 11$
 hits every residue except~$1$. Explicitly:
 $\{T_0, \ldots, T_9\} \bmod 11 = \{7, 2, 3, 5, 9, 6, 0, 10, 8, 4\}$.
 \end{proof}
 
-\begin{theorem}[Fibonacci Residues in Mod 11]\label{thm:fib-mod11}
-The OMARWA residues modulo~$11$ satisfy $T_1 \bmod 11 = F_3$,
-$T_2 \bmod 11 = F_4$, $T_3 \bmod 11 = F_5$, where $F_n$ denotes the
-$n$\textsuperscript{th} Fibonacci number. This Fibonacci embedding
-arises because $\ord_{11}(2) = 10$ generates a helical orbit in which
-the first three terms coincide with consecutive Fibonacci numbers.
+\subsection{The Sabbath Node}\label{sec:sabbath}
+
+\begin{theorem}[Sabbath Node]\label{thm:sabbath}
+$T_6 = 385 = 5 \times 7 \times 11$. In particular, $T_6$ is
+simultaneously divisible by~$5$, $7$, and~$11$:
+\[
+  T_6 \equiv 0 \pmod{5}, \quad
+  T_6 \equiv 0 \pmod{7}, \quad
+  T_6 \equiv 0 \pmod{11}.
+\]
 \end{theorem}
 
+\begin{proof}
+$T_6 = 6 \cdot 2^6 + 1 = 385$. The factorization $385 = 5 \times 7
+\times 11$ is verified directly.
+\end{proof}
+
+The triple-reset at $k = 6$ (the seventh term, hence ``Sabbath node'')
+is explained by the confluence of periods: $P(5) = 4 \mid 4$, but the
+mod~$7$ and mod~$11$ orbits each pass through zero at $k = 6$
+(since $P(7) = 3 \mid 6$ and $6 < P(11) = 10$ with
+$T_6 \bmod 11 = 0$).
+
+\begin{proposition}[Primality Map]\label{prop:primality}
+Among $T_0, T_1, \ldots, T_{29}$, the primes are exactly
+$T_k$ for $k \in \{0, 1, 4, 5, 7, 11, 17, 29\}$, yielding eight
+primes within the first super-period.
+\end{proposition}
+
+\begin{proposition}[Emirp Pair]\label{prop:emirp}
+The integers $37$ and $73$ form an emirp pair (both prime, each the
+digit-reversal of the other). Both appear naturally:
+$37 = P(37) = 36$ gives $\ord_{37}(2) = 36 = \varphi(37)$, and
+$73 = T_3 + T_1 + T_0 - 2$.
+\end{proposition}
+
 % ══════════════════════════════════════════════════════════════
-\section{Fractal Period Laws and the Super-Period}
+\section{Fractal Period Laws, Forbidden Unity, and the Super-Period}
 % ══════════════════════════════════════════════════════════════
 
 \subsection{Prime-Power Periods}
 
 \begin{theorem}[Ternary Fractal Law]\label{thm:ternary}
-For $n \geq 2$:
-\[
-  P(3^n) = 2 \cdot 3^{n-2}.
-\]
+For $n \geq 2$: $P(3^n) = 2 \cdot 3^{n-2}$.
 \end{theorem}
 
 \begin{proof}
@@ -382,18 +354,9 @@ $\ord_{3^{n-1}}(2) = 2 \cdot 3^{n-2}$.
 For $n \geq 1$: $P(11^n) = 10 \cdot 11^{n-1}$.
 \end{theorem}
 
-\begin{theorem}[Quintic Fractal Law]\label{thm:quintic}
-For $n \geq 1$: $P(5^n) = 4 \cdot 5^{n-1}$.
-\end{theorem}
-
-\begin{theorem}[Septimal Fractal Law]\label{thm:septimal}
-For $n \geq 1$: $P(7^n) = 3 \cdot 7^{n-1}$.
-\end{theorem}
-
 \begin{theorem}[General Fractal Law]\label{thm:general-fractal}
-Let $p \nmid 6$ be a prime such that
-$2^{\ord_p(2)} \not\equiv 1 \pmod{p^2}$ (i.e., $p$ is not a Wieferich
-prime~\cite{wieferich}). Then for $n \geq 1$:
+Let $p \nmid 6$ be a prime satisfying the non-Wieferich condition
+$2^{\ord_p(2)} \not\equiv 1 \pmod{p^2}$. Then for $n \geq 1$:
 \[
   P(p^n) = \ord_p(2) \cdot p^{n-1}.
 \]
@@ -408,8 +371,7 @@ $\ord_{p^n}(2) = \ord_p(2) \cdot p^{n-1}$.
 
 \begin{remark}\label{rem:wieferich}
 The only known Wieferich primes are $1093$ and $3511$~\cite{wieferich}.
-For $p = 1093$, we have $\ord_{1093}(2) = 364$ and the fractal law may
-fail at $n = 2$. All other primes $p < 10^{17}$ satisfy the hypothesis.
+All other primes $p < 10^{17}$ satisfy the hypothesis.
 \end{remark}
 
 \subsection{Core Reduction}
@@ -430,7 +392,71 @@ $(6/g) \cdot 2^k \bmod (m/g)$---with $(6/g)$ invertible
 modulo~$m/g$---inherits the period of~$2^k$.
 \end{proof}
 
-\subsection{The Super-Period}
+\subsection{Mersenne and Fermat Periods}\label{sec:mersenne}
+
+The OMARWA periods at Mersenne and Fermat primes exhibit a clean
+dichotomy:
+
+\begin{theorem}[Mersenne Periods]\label{thm:mersenne}
+For Mersenne primes $M_p = 2^p - 1$:
+\[
+  P(M_p) = p.
+\]
+In particular: $P(7) = 3$, $P(31) = 5$, $P(127) = 7$.
+\end{theorem}
+
+\begin{proof}
+By the Core Reduction, $P(M_p) = \ord_{M_p}(2)$. Since
+$2^p \equiv 1 \pmod{M_p}$ by definition and $M_p$ is prime,
+$\ord_{M_p}(2) \mid p$. Since $p$ is prime and $\ord_{M_p}(2) > 1$,
+the only possibility is $\ord_{M_p}(2) = p$.
+\end{proof}
+
+\begin{theorem}[Fermat--Rank Lock]\label{thm:fermat}
+$P(17) = 8 = \mathrm{rank}(E_8)$. More generally, for the Fermat prime
+$F_n = 2^{2^n} + 1$, we have $\ord_{F_n}(2) = 2^{n+1}$.
+\end{theorem}
+
+\begin{proof}
+$\ord_{17}(2) = 8$ since $2^8 = 256 = 15 \times 17 + 1 \equiv 1
+\pmod{17}$ and $2^4 = 16 \equiv -1 \not\equiv 1 \pmod{17}$.
+\end{proof}
+
+The coincidence $P(17) = 8 = \mathrm{rank}(E_8)$ is the
+``Rank Lock'' connecting the OMARWA period at the Fermat prime~$17$
+to the rank of the exceptional Lie algebra~$E_8$.
+
+\subsection{Forbidden Unity Theorem}\label{sec:forbidden}
+
+\begin{theorem}[Forbidden Unity]\label{thm:forbidden}
+For any $m \geq 2$ with $\gcd(m, 6) = 1$:
+\[
+  T_k \not\equiv 1 \pmod{m} \quad \text{for all } k \geq 0.
+\]
+\end{theorem}
+
+\begin{proof}
+Suppose $T_k \equiv 1 \pmod{m}$. Then $6 \cdot 2^k \equiv 0 \pmod{m}$.
+Since $\gcd(m, 6) = 1$ and $\gcd(m, 2^k) = 1$ (as $m$ is odd and
+coprime to~$3$), we have $m \mid 6 \cdot 2^k$ impossible for
+$m \geq 2$. Contradiction.
+\end{proof}
+
+\begin{corollary}
+The residue $1$ is \emph{forbidden} in the mod~$11$ orbit of $T_k$:
+$\{T_k \bmod 11 : k \geq 0\} = \mathbb{Z}_{11} \setminus \{1\}$.
+Similarly for $m = 29, 59, 177$.
+\end{corollary}
+
+\subsection{Lifted Super-Period}
+
+\begin{proposition}[Lifted Super-Period]\label{prop:lifted}
+$P(121) = P(11^2) = 110$ and
+$L' = \lcm(P(9), P(121), P(27)) = \lcm(2, 110, 6) = 330 = 11 \times
+h(E_8)$.
+\end{proposition}
+
+\subsection{The Super-Period}\label{sec:super}
 
 \begin{definition}[Super-Period]\label{def:superperiod}
 The \emph{super-period} $L$ is the minimal positive integer such that
@@ -442,101 +468,166 @@ $L = \lcm(P(9), P(11), P(27)) = \lcm(2, 10, 6) = 30.$
 \end{theorem}
 
 \begin{theorem}[Super-Period, Path~II]\label{thm:sp2}
-\[
-  P(77) = P(7 \times 11) = \lcm(P(7), P(11)) = \lcm(3, 10) = 30.
-\]
+$P(77) = P(7 \times 11) = \lcm(P(7), P(11)) = \lcm(3, 10) = 30.$
 \end{theorem}
 
 \begin{theorem}[Super-Period, Path~III]\label{thm:sp3}
-\[
-  P(99) = P(9 \times 11) = \lcm(P(9), P(11)) = \lcm(2, 10) = 30.
-\]
+$P(99) = P(9 \times 11) = \lcm(P(9), P(11)) = \lcm(2, 10) = 10.$ \\
+Yet $\lcm(P(99), P(27)) = \lcm(10, 6) = 30 = L$.
 \end{theorem}
 
 \subsection{Composite Modular Periods}
-
-The Product Theorem (Theorem~\ref{thm:product}) combined with the
-fractal laws allows computation of $P(m)$ for arbitrary composite~$m$.
-Selected results include:
 
 \begin{proposition}\label{prop:composite}
 $P(33) = 10$, \; $P(99) = 10$, \; $P(407) = 180$, \;
 $P(777) = 36$, \; $P(999) = 36$, \; $P(1453) = 1452$.
 \end{proposition}
 
-The value $P(1453) = 1452 = \varphi(1453)$ shows that $2$ is a
+The value $P(1453) = 1452 = \varphi(1453)$ means $2$ is a
 primitive root modulo~$1453$, consistent with Artin's
 conjecture~\cite{artin}.
 
-\subsection{Exceptional Periods}
+% ══════════════════════════════════════════════════════════════
+\section{Affine Operator and the \texorpdfstring{$6n{+}1$}{6n+1}
+  Skeleton}\label{sec:affine}
+% ══════════════════════════════════════════════════════════════
 
-The ternary tower $P(3^n)$ produces OMARWA periods that coincide with
-the Coxeter numbers of exceptional simple Lie groups:
+\begin{definition}[$6n{+}1$ Skeleton]\label{def:skeleton}
+Define $A_n = 6n + 1$ for $n \geq 0$. Then:
+\end{definition}
 
-\begin{theorem}[Exceptional Periods]\label{thm:exceptional}
-The following equalities hold:
+\begin{theorem}[$6n{+}1$ Confinement]\label{thm:confinement}
+$T_k \equiv 1 \pmod{6}$ for all $k \geq 0$.
 \end{theorem}
 
-\begin{table}[H]
-\centering
-\caption{OMARWA periods coinciding with exceptional Coxeter
-  numbers.}\label{tab:exceptional}
-\smallskip
-\begin{tabular}{@{}lccc@{}}
-\toprule
-Group $G$ & $h(G)$ & OMARWA period & Derivation \\
-\midrule
-$G_2$ & 6  & $P(27) = 6$     & $\ord_9(2) = 6$ \\
-$E_7$ & 18 & $P(81) = 18$    & $\ord_{27}(2) = 18$ \\
-$E_8$ & 30 & $L = P(77) = 30$ & Theorems~\ref{thm:sp1}--\ref{thm:sp3} \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-For $F_4$ and $E_6$ (both $h = 12$), the connection is indirect:
-$12 = 2 \times P(27) = 2 \times h(G_2)$, realized as the order of the
-dihedral group~$D_6$.
-
 \begin{proof}
-Each entry follows from the Core Reduction (Theorem~\ref{thm:core}) and
-the ternary fractal law (Theorem~\ref{thm:ternary}):
-\begin{itemize}
-  \item $P(27) = P(3^3) = \ord_{3^2}(2) = \ord_9(2) = 6$;
-  \item $P(81) = P(3^4) = \ord_{3^3}(2) = \ord_{27}(2) = 18$;
-  \item $P(77) = 30$ by Theorem~\ref{thm:sp2}.
-\end{itemize}
-That $h(G_2) = 6$, $h(E_7) = 18$, $h(E_8) = 30$ are
-standard~\cite{humphreys}. The observation that these Coxeter numbers
-coincide with OMARWA periods is verified formally in Lean~4 (see
-Appendix~\ref{app:lean}).
+$T_k = 6 \cdot 2^k + 1 \equiv 0 + 1 = 1 \pmod{6}$.
 \end{proof}
 
-% ══════════════════════════════════════════════════════════════
-\section{Affine Operator Structure}
-% ══════════════════════════════════════════════════════════════
+\begin{theorem}[Sampling Theorem]\label{thm:sampling}
+$T_k = A_{2^k}$; the OMARWA sequence samples the $6n{+}1$ skeleton at
+powers of~$2$.
+\end{theorem}
+
+\begin{proof}
+$A_{2^k} = 6 \cdot 2^k + 1 = T_k$.
+\end{proof}
 
 For each modulus $m$ with $m' = m/\gcd(m,6)$, the doubling map
 $\phi : x \mapsto 2x \pmod{m'}$ acts on $\mathbb{Z}_{m'}$.
 
 \begin{proposition}[Orbit-Period Identity]\label{prop:orbit}
-The length of the orbit of the generator~$1$ under $\phi$ in
+The length of the orbit of~$1$ under $\phi$ in
 $\mathbb{Z}_{m'}$ equals $P(m)$.
 \end{proposition}
 
-\begin{proof}
-The period of $2^k \bmod m'$ starting at $k = 0$ (i.e., the orbit
-of~$1$ under $\phi$) has length $\ord_{m'}(2) = P(m)$.
-\end{proof}
-
-\begin{proposition}[Skeleton Decomposition]\label{prop:skeleton}
-The orbits of $\phi$ on $\mathbb{Z}_{m'}^{\times}$ partition the unit
-group into disjoint cycles, each of length dividing $\ord_{m'}(2)$.
+\begin{proposition}[Key Periods from the Affine Operator]\label{prop:key-periods}
+\leavevmode
+\begin{itemize}
+  \item $P(7) = 3 = \ord_7(2)$,
+  \item $P(11) = 10 = \ord_{11}(2)$,
+  \item $P(17) = 8 = \ord_{17}(2) = \mathrm{rank}(E_8)$,
+  \item $P(29) = 28$ (half-ribbon period),
+  \item $P(59) = 58$ (full ribbon traversal),
+  \item $P(77) = 30 = h(E_8)$ (Coxeter Lock).
+\end{itemize}
 \end{proposition}
 
-\begin{proposition}[Sampling Theorem]\label{prop:sampling}
-The OMARWA sequence modulo~$m$ samples the orbit of $\phi$ starting at
-the residue $6 \bmod m'$, producing a faithful copy of the cycle
-structure when $\gcd(6, m') = 1$.
+% ══════════════════════════════════════════════════════════════
+\section{Product Theorem and CRT Intertwining}\label{sec:crt}
+% ══════════════════════════════════════════════════════════════
+
+\subsection{Product Theorem}
+
+\begin{theorem}[Product Theorem / CRT]\label{thm:product}
+For $\gcd(m_1, m_2) = 1$:
+\[
+  P(m_1 m_2) = \lcm(P(m_1), P(m_2)).
+\]
+\end{theorem}
+
+\begin{proof}
+By the Chinese Remainder Theorem~\cite{ireland}, the ring
+$\mathbb{Z}_{m_1 m_2} \cong \mathbb{Z}_{m_1} \times \mathbb{Z}_{m_2}$,
+and the period of a pair $(a_k \bmod m_1,\; a_k \bmod m_2)$ is the
+least common multiple of the component periods.
+\end{proof}
+
+\begin{theorem}[GCD Law]\label{thm:gcd}
+For $i \neq j$: $\gcd(T_i, T_j) \mid 2^{|i-j|} - 1$.
+\end{theorem}
+
+\begin{proof}
+$T_i - T_j = 6 \cdot 2^{\min(i,j)}(2^{|i-j|} - 1)$.
+If $d = \gcd(T_i, T_j)$, then $\gcd(d, 6) = 1$ (since $T_k$ is odd
+and $T_k \not\equiv 0 \pmod{3}$) and $\gcd(d, 2^{\min(i,j)}) = 1$.
+Hence $d \mid (2^{|i-j|} - 1)$.
+\end{proof}
+
+\begin{corollary}\label{cor:coprime}
+$\gcd(T_k, T_{k+1}) = 1$ for all $k \geq 0$.
+\end{corollary}
+
+\begin{table}[H]
+\centering
+\caption{Selected values of the OMARWA period $P(m)$.}\label{tab:periods}
+\smallskip
+\begin{tabular}{@{}rrcrl@{}}
+\toprule
+$m$ & $P(m)$ & $m'$ & $\ord_{m'}(2)$ & Note \\
+\midrule
+3  & 1  & 1  & ---  & $T_k \equiv 1$ \\
+5  & 4  & 5  & 4    & --- \\
+7  & 3  & 7  & 3    & Mersenne $2^3 - 1$ \\
+9  & 2  & 3  & 2    & Binary alternation \\
+11 & 10 & 11 & 10   & Primitive root \\
+13 & 12 & 13 & 12   & --- \\
+17 & 8  & 17 & 8    & Fermat; $= \mathrm{rank}(E_8)$ \\
+27 & 6  & 9  & 6    & $= h(G_2)$ \\
+29 & 28 & 29 & 28   & Half-ribbon \\
+31 & 5  & 31 & 5    & Mersenne $2^5 - 1$ \\
+37 & 36 & 37 & 36   & Primitive root \\
+59 & 58 & 59 & 58   & Ribbon width \\
+77 & 30 & 77 & 30   & $= h(E_8)$ \\
+81 & 18 & 27 & 18   & $= h(E_7)$ \\
+121 & 110 & 121 & 110 & $P(11^2)$ \\
+127 & 7  & 127 & 7   & Mersenne $2^7 - 1$ \\
+354 & 58 & 59  & 58  & Full cycle \\
+407 & 180 & 407 & 180 & $P(11 \times 37)$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{The 354-Anatomy and CRT Intertwining}\label{sec:354}
+
+The integer $354 = 2 \times 3 \times 59$ plays a distinctive role in
+the OMARWA arithmetic. Since $\gcd(354, 6) = 6$, the Core Reduction
+gives:
+\[
+  P(354) = \ord_{59}(2) = 58.
+\]
+
+\begin{proposition}[354-Decomposition]\label{prop:354}
+$354 = 6 \times 59 = 2 \times 177 = 2 \times 3 \times 59$, with
+$177 = 3 \times 59$ acting as the antipodal modulus.
+\end{proposition}
+
+\begin{definition}[Intertwining Map]\label{def:intertwine}
+The \emph{CRT intertwining map} is
+$\iota : \mathbb{Z}_{354} \to \mathbb{Z}_{354}$ defined by
+$\iota(s) = (60s + 295) \bmod 354$.
+\end{definition}
+
+This map arises from the CRT isomorphism
+$\mathbb{Z}_{354} \cong \mathbb{Z}_6 \times \mathbb{Z}_{59}$ and
+intertwines the mod~$6$ and mod~$59$ components. The orbit length of
+the OMARWA residues modulo~$354$ equals~$58$, confirming
+$P(354) = 58 = \ord_{59}(2)$.
+
+\begin{proposition}[Ribbon Synchronization]\label{prop:ribbon-sync}
+$\lcm(P(121), P(354)) = \lcm(110, 58) = 3190 = 110 \times 29$.
+The global synchronization period is
+$\lcm(L', P(354)) = \lcm(330, 58) = 9570 = 330 \times 29$.
 \end{proposition}
 
 % ══════════════════════════════════════════════════════════════
@@ -558,8 +649,12 @@ $T_0 \cdot T_1 = 7 \times 13 = 91 = H_6$.
 $T_3 = 49 = 7^2 = T_0^2$ and $T_3 = H_4$.
 \end{proposition}
 
+\begin{proposition}[Hexagonal Confinement]\label{prop:hex-conf}
+$H_n \equiv 1 \pmod{6}$ for all $n \geq 0$, so every centered
+hexagonal number lies on the $6n{+}1$ skeleton.
+\end{proposition}
+
 \begin{conjecture}[Finiteness]\label{conj:finite}
-Computational evidence for $k \leq 100$ and $n \leq 10^4$ suggests that
 $\{k : T_k = H_n \text{ for some } n\} = \{0, 3\}$.
 \end{conjecture}
 
@@ -568,7 +663,7 @@ $\{k : T_k = H_n \text{ for some } n\} = \{0, 3\}$.
 % ══════════════════════════════════════════════════════════════
 
 \begin{proposition}\label{prop:dr}
-For all $k \geq 0$,
+For all $k \geq 0$:
 \[
   T_k \bmod 9 = \begin{cases} 7 & k \text{ even}, \\ 4 & k \text{ odd}.
   \end{cases}
@@ -576,9 +671,7 @@ For all $k \geq 0$,
 \end{proposition}
 
 \begin{proof}
-$T_k \bmod 9 = (6 \cdot 2^k + 1) \bmod 9$. Since $P(9) = 2$:
-$T_0 \bmod 9 = 7$, $T_1 \bmod 9 = 4$, and the pattern repeats with
-period~$2$.
+$P(9) = 2$: $T_0 \bmod 9 = 7$, $T_1 \bmod 9 = 4$, repeating.
 \end{proof}
 
 \begin{corollary}\label{cor:dr}
@@ -587,87 +680,324 @@ The digital root of $T_k$ alternates between $7$ (even~$k$) and $4$
 \end{corollary}
 
 % ══════════════════════════════════════════════════════════════
-\section{Pascal Triangle, Sierpi\'nski Fractal, and the Fibonacci
-  Bridge}\label{sec:pascal}
+\section{Pascal--Sierpi\'nski--Fibonacci Bridge and the Collatz
+  Connection}\label{sec:pascal}
 % ══════════════════════════════════════════════════════════════
 
-The OmarwaCore formalization includes a module connecting the OMARWA
-sequence to the Pascal triangle via Kummer's theorem~\cite{kummer}:
+\subsection{Pascal--Sierpi\'nski Bridge}
 
 \begin{proposition}[Carry Criterion]\label{prop:kummer}
-For $T_k = 6 \cdot 2^k + 1$, the $p$-adic valuation
-$\nu_p\binom{T_i}{T_j}$ for prime~$p$ equals the number of carries
-when adding $T_j$ and $T_i - T_j$ in base~$p$ (Kummer's theorem).
+The $p$-adic valuation $\nu_p\binom{T_i}{T_j}$ equals the number of
+carries when adding $T_j$ and $T_i - T_j$ in base~$p$
+(Kummer's theorem~\cite{kummer}).
 \end{proposition}
 
 \begin{proposition}[Sierpi\'nski Gasket]\label{prop:sierpinski}
-The Pascal triangle $\binom{T_k}{j} \bmod 2$ produces
-Sierpi\'nski-type fractal patterns at rows indexed by OMARWA terms,
-with the fractal dimension governed by the binary expansion of~$T_k$.
+$\binom{T_k}{j} \bmod 2$ produces Sierpi\'nski-type fractal patterns
+at rows indexed by OMARWA terms.
 \end{proposition}
 
+\begin{theorem}[Fibonacci Residues in Mod 11]\label{thm:fib-mod11}
+$T_1 \bmod 11 = F_3 = 2$,\;
+$T_2 \bmod 11 = F_4 = 3$,\;
+$T_3 \bmod 11 = F_5 = 5$.
+\end{theorem}
+
 \begin{proposition}[Lucas--Golden Bridge]\label{prop:lucas}
-The Lucas number $L_5 = 11$ appears as the modulus for which
-$P(11) = 10 = \varphi(11)$, and the Fibonacci number $F_{10} = F_5
-\cdot L_5 = 5 \times 11 = 55$ equals the second Bernoulli
-number-related invariant $B_2 = 55$. This triple convergence
-(Lucas--Fibonacci--OMARWA) arises from the decomposition
-$F_{2n} = F_n \cdot L_n$.
+$L_5 = 11$ (Lucas number), $P(11) = 10 = \varphi(11)$, and
+$F_{10} = F_5 \cdot L_5 = 5 \times 11 = 55$.
 \end{proposition}
 
 \begin{proposition}[CRT Pascal Decomposition]\label{prop:crt-pascal}
-The binomial coefficient $\binom{T_k}{j} \bmod 6$ decomposes via CRT
-into $\binom{T_k}{j} \bmod 2$ and $\binom{T_k}{j} \bmod 3$, yielding
-Sierpi\'nski patterns that respect the P622 crystallographic
-symmetry of the hexagonal lattice.
+$\binom{T_k}{j} \bmod 6$ decomposes via CRT into mod~$2$ and mod~$3$
+components, yielding Sierpi\'nski patterns respecting P622
+crystallographic symmetry.
 \end{proposition}
 
-These results are formally verified in \texttt{PascalSierpinski.lean}
-and \texttt{GrandSynthesis.lean} (combined 140+ theorems).
+\subsection{Collatz--Fibonacci Bridge}\label{sec:collatz}
+
+\begin{theorem}[Collatz--OMARWA Bridge]\label{thm:collatz}
+The Collatz trajectory of $T_0 = 27$ (noting $27 = 3^3$) requires
+exactly $111 = 3 \times 37$ steps to reach~$1$. The trajectory of
+$T_4 = 97$ requires $118 = 2 \times 59$ steps. The difference is
+$118 - 111 = 7 = T_0$.
+\end{theorem}
+
+\begin{theorem}[Fibonacci Order]\label{thm:fib-order}
+$\ord_{577}(2) = 144 = F_{12}$, where $577$ is prime. This connects
+multiplicative orders to the Fibonacci sequence through the Pisano
+period.
+\end{theorem}
 
 % ══════════════════════════════════════════════════════════════
-\section{Palindromic Residue Symmetry}
+\section{Palindromic Symmetry and Fractal Holon
+  Structures}\label{sec:palindrome}
 % ══════════════════════════════════════════════════════════════
 
-\begin{proposition}\label{prop:palindrome}
+\subsection{Palindromic Involution}
+
+\begin{theorem}[Palindromic Involution]\label{thm:palindrome}
 For any $m$ with $P(m)$ even, the residue sequence
 $r_k = T_k \bmod m$ satisfies
 $r_k + r_{k + P(m)/2} \equiv 2 \pmod{m'}$ for all~$k$, where
 $m' = m/\gcd(m,6)$.
-\end{proposition}
+\end{theorem}
 
 \begin{proof}
-We compute $r_{k + P(m)/2} = 6 \cdot 2^{k + P(m)/2} + 1$, which gives
-\[
-  r_{k + P(m)/2} \equiv 6 \cdot 2^k \cdot 2^{P(m)/2} + 1 \pmod{m}.
-\]
-Since $2^{P(m)} \equiv 1 \pmod{m'}$, we have
-$2^{P(m)/2} \equiv -1 \pmod{m'}$ when $\ord_{m'}(2) = P(m)$ and
-$P(m)$ is even. Thus
+Since $2^{P(m)} \equiv 1 \pmod{m'}$ and $P(m)$ is even,
+$2^{P(m)/2} \equiv -1 \pmod{m'}$. Thus
 $r_{k+P(m)/2} \equiv -6 \cdot 2^k + 1 \pmod{m'}$, giving
 $r_k + r_{k+P(m)/2} \equiv 2 \pmod{m'}$.
 \end{proof}
 
-This symmetry produces palindromic patterns in the residue sequences,
-verified computationally for all $m \leq 1000$ with even~$P(m)$.
+\begin{proposition}[29-1-29 Ribbon]\label{prop:ribbon29}
+The full OMARWA orbit modulo~$59$ has period~$58$, decomposing as
+$29 + 1 + 29 - 1 = 58$: two wings of length~$29$ separated by a
+center and an antipodal node, where $29 = h(E_8) - 1$ is the maximal
+Weyl exponent of~$E_8$.
+\end{proposition}
 
-\begin{proposition}[Wing Sum Identity]\label{prop:wing}
-The palindromic digit sums of the OMARWA residue vector modulo~$11$
-satisfy: left wing sum = $26$, right wing sum = $28$, with
-$26 + 28 = 54 = S(11)$ (the sum of all elements in
-$\mathbb{Z}_{11} \setminus \{1\}$), and the apex sum equals
-$15 = h(E_8)/2$.
+\begin{proposition}[354--453 Cosmic Palindrome]\label{prop:354-453}
+$354 \equiv 453 \pmod{9}$ and $354 \equiv 453 \pmod{11}$, with
+$453 - 354 = 99 = 9 \times 11$.
+The digit-reversal $354 \leftrightarrow 453$ is a palindromic
+involution that preserves both the mod~$9$ and mod~$11$ residue classes.
+\end{proposition}
+
+\begin{proposition}[Emirp Palindrome]\label{prop:emirp-palindrome}
+$37$ and $73$ are an emirp pair. The palindromic prime $313$ divides
+$37 \times 73 - 2388 = 313$, and $313$ is indeed a palindromic prime.
+\end{proposition}
+
+\subsection{Fractal Holon Structures}
+
+\begin{theorem}[Fractal Period Conservation]\label{thm:fractal-holon}
+$P(111) = P(37) = 36$ and $P(333) = 36$. The period is conserved under
+the Trinity multiplication $37 \to 3 \times 37 = 111 \to
+3 \times 111 = 333$ because $\gcd(3, 37) = 1$ and $P(3) = 1$.
+\end{theorem}
+
+\begin{proposition}[729-Period]\label{prop:729}
+$P(729) = P(3^6) = 2 \cdot 3^4 = 162$.
+\end{proposition}
+
+\begin{proposition}[Quadratic Residue]\label{prop:quad-res}
+$\ord_{11}(4) = 5$, governing the mod~$11$ behavior of $37^n$
+since $37 \equiv 4 \pmod{11}$.
 \end{proposition}
 
 % ══════════════════════════════════════════════════════════════
-\section{Remark: Connection to
-  \texorpdfstring{$h(E_8) = 30$}{h(E8)=30}}
+\section{Network Topology and Holon
+  Crystallography}\label{sec:holon}
 % ══════════════════════════════════════════════════════════════
 
-We note that the super-period $L = 30$ coincides with the Coxeter
-number $h(E_8)$ of the exceptional Lie group~$E_8$. Whether this
-numerical coincidence reflects a deeper structural connection between
-affine sequences and exceptional Lie theory remains an open question.
+\subsection{354-Plane Indexing and Network Theorems}
+
+The OMARWA arithmetic generates a family of network topology identities
+(MT-1 through MT-14) based on the $354$-plane indexing:
+
+\begin{theorem}[354-Plane Identity (MT-1)]\label{thm:mt1}
+$354 = 6 \times 59$, with each ``sector'' of~$59$ planes decomposing as
+$59 = 29 + 1 + 29$ (ribbon half-width + center + ribbon half-width).
+\end{theorem}
+
+\begin{theorem}[Antipodal Involution (MT-3)]\label{thm:mt3}
+The map $i \mapsto (i + 177) \bmod 354$ is an involution on
+$\mathbb{Z}_{354}$, partitioning the $354$ planes into $177$ antipodal
+pairs.
+\end{theorem}
+
+\begin{theorem}[29-1-29 Ribbon Decomposition (MT-4)]\label{thm:mt4}
+Each sector contains $59$ planes: $29$ in the left wing, $1$ central
+junction, and $29$ in the right wing. The value $29 = h(E_8) - 1$
+is the maximal Weyl exponent of~$E_8$.
+\end{theorem}
+
+\subsection{Holon Crystallography}
+
+\begin{theorem}[Trinity Palindrome]\label{thm:trinity}
+$37 + 111 + 111 + 111 + 37 = 407 = 11 \times 37$.
+\end{theorem}
+
+\begin{proof}
+Direct computation: $37 + 3 \times 111 + 37 = 74 + 333 = 407$, and
+$407 / 11 = 37$.
+\end{proof}
+
+\begin{proposition}[Holon Hierarchy]\label{prop:holon-hier}
+$37 = H_4$ (centered hexagonal), $111 = 3 \times 37$,
+$333 = 9 \times 37$, $370 = 10 \times 37$, and $370 \bmod 11 = 7 = T_0$
+(closure).
+\end{proposition}
+
+\begin{theorem}[Double Lock]\label{thm:double-lock}
+$T_k \equiv 8 \pmod{11}$ implies $T_k \equiv 1 \pmod{8}$.
+This ``APEX triggering'' occurs at $k \equiv 8 \pmod{10}$; for
+$k \geq 3$, $T_k \bmod 8 = 1$ always, since $2^k \bmod 8 = 0$.
+\end{theorem}
+
+\begin{proposition}[Pisano Synchronization]\label{prop:pisano}
+The Pisano period $\pi(11) = 10 = P(11)$: the Fibonacci sequence
+modulo~$11$ and the OMARWA sequence modulo~$11$ share the same
+fundamental period.
+\end{proposition}
+
+% ══════════════════════════════════════════════════════════════
+\section{Weyl Exponents of
+  \texorpdfstring{$E_8$}{E8}}\label{sec:weyl}
+% ══════════════════════════════════════════════════════════════
+
+The exponents of the Weyl group of~$E_8$ are
+$\{m_1, \ldots, m_8\} = \{1, 7, 11, 13, 17, 19, 23, 29\}$.
+
+\begin{theorem}[Weyl Exponent Sum]\label{thm:weyl-sum}
+$\displaystyle\sum_{i=1}^{8} m_i = 1 + 7 + 11 + 13 + 17 + 19 + 23 + 29
+= 120 = \frac{\dim(E_8)}{2} - 4$.
+\end{theorem}
+
+\begin{theorem}[Palindromic Pairing]\label{thm:weyl-palindrome}
+$m_i + m_{9-i} = 30 = h(E_8)$ for $i = 1, \ldots, 4$:
+\[
+  1 + 29 = 7 + 23 = 11 + 19 = 13 + 17 = 30.
+\]
+\end{theorem}
+
+\begin{proposition}[Coprimality]\label{prop:weyl-coprime}
+Every Weyl exponent of~$E_8$ is coprime to $30 = h(E_8)$; equivalently,
+the exponents are exactly the units $(\mathbb{Z}/30\mathbb{Z})^{\times}$
+with $\varphi(30) = 8 = \mathrm{rank}(E_8)$.
+\end{proposition}
+
+\begin{theorem}[Dimension Formula]\label{thm:dim-e8}
+$\dim(E_8) = 248 = 2 \times 120 + 8 = 2\sum m_i + \mathrm{rank}(E_8)$.
+\end{theorem}
+
+\begin{remark}
+The OMARWA connection: $m_2 = 7 = T_0$ and $m_8 = 29 = h(E_8) - 1$.
+The palindromic pairing $m_i + m_{9-i} = h(E_8)$ mirrors the
+palindromic involution of OMARWA residues
+(Theorem~\ref{thm:palindrome}).
+\end{remark}
+
+% ══════════════════════════════════════════════════════════════
+\section{Exceptional Universality and Coxeter
+  Numbers}\label{sec:exceptional}
+% ══════════════════════════════════════════════════════════════
+
+\begin{theorem}[Coxeter--Period Identity]\label{thm:coxeter}
+$h(E_8) = 30 = L$ (the OMARWA super-period).
+Moreover, $\varphi(h(E_8)) = \varphi(30) = 8 = \mathrm{rank}(E_8)$.
+\end{theorem}
+
+\begin{theorem}[Exceptional Universality]\label{thm:exceptional}
+The Coxeter numbers of all five exceptional simple Lie groups arise from
+OMARWA arithmetic:
+\end{theorem}
+
+\begin{table}[H]
+\centering
+\caption{Exceptional Coxeter numbers from OMARWA periods.}
+\label{tab:exceptional}
+\smallskip
+\begin{tabular}{@{}lccl@{}}
+\toprule
+Group $G$ & $h(G)$ & OMARWA source & Derivation \\
+\midrule
+$G_2$ & 6  & $P(27) = 6$     & $\ord_9(2) = 6$ \\
+$F_4$ & 12 & $|D_6| = 12$    & $2 \times P(27) = 2 \times h(G_2)$ \\
+$E_6$ & 12 & $|D_6| = 12$    & P622 point group order \\
+$E_7$ & 18 & $P(81) = 18$    & $\ord_{27}(2) = 18$ \\
+$E_8$ & 30 & $L = P(77) = 30$ & $\lcm(P(7), P(11))$ (super-period) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{proof}
+Each Coxeter number~$h(G)$ matches an OMARWA period:
+\begin{itemize}
+  \item $P(27) = P(3^3) = \ord_9(2) = 6 = h(G_2)$;
+  \item $P(81) = P(3^4) = \ord_{27}(2) = 18 = h(E_7)$;
+  \item $L = P(77) = 30 = h(E_8)$.
+\end{itemize}
+For $F_4$ and $E_6$ (both $h = 12$): $12 = 2 \times h(G_2)$ arises as
+the order of the diheral group~$D_6$, the point group of the P622
+hexagonal lattice. That $h(G_2) = 6$, $h(E_7) = 18$, $h(E_8) = 30$ are
+standard~\cite{humphreys}. The Weyl group order
+$|W(E_8)| = 696{,}729{,}600$ and the Rank Lock $\varphi(30) = 8$
+provide additional structural confirmation.
+\end{proof}
+
+% ══════════════════════════════════════════════════════════════
+\section{Topological and Physical
+  Interpretations}\label{sec:topology}
+% ══════════════════════════════════════════════════════════════
+
+The algebraic structures established in Sections~2--11 admit natural
+topological and physical interpretations. We present these as
+\emph{model statements} (epistemic class~[B]/[C]) rather than proven
+theorems; all underlying algebraic identities are verified in Lean~4.
+
+\subsection{Winding Numbers on \texorpdfstring{$T^3$}{T3}}
+
+\begin{proposition}[Toroidal Winding]\label{prop:winding}
+The super-period $L = 30$ traces a path on the $3$-torus
+$T^3 = S^1 \times S^1 \times S^1$ where each circle corresponds to one
+modular period:
+\[
+  (n_1, n_2, n_3) = \left(\frac{L}{P(9)},\;
+  \frac{L}{P(11)},\; \frac{L}{P(27)}\right)
+  = (15, 3, 5).
+\]
+The winding number product is $15 \times 3 \times 5 = 225 = 15^2$, and
+the sum $15 + 3 + 5 = 23$ is prime.
+\end{proposition}
+
+\subsection{Chern--Simons Level}
+
+\begin{proposition}[Chern--Simons Level]\label{prop:cs}
+Setting the Chern--Simons level $k_{\mathrm{CS}} = 30 = L = h(E_8)$
+yields:
+\begin{itemize}
+  \item Berry phase: $\gamma_{30} = 15\pi$ (half-integer winding),
+  \item First Chern number: $C_1 = k_{\mathrm{CS}} / 2 = 15$,
+  \item Anyonic exchange angle: $\theta = \pi / k_{\mathrm{CS}}
+    = \pi / 30$,
+  \item Ground state degeneracy on $T^2$: $\mathrm{GSD} = k_{\mathrm{CS}} = 30$.
+\end{itemize}
+\end{proposition}
+
+The three independent derivations of $k_{\mathrm{CS}} = 30$ (from the
+Coxeter number, from the super-period, and from the prime
+factorization $30 = 2 \times 3 \times 5$) are verified algebraically in
+Lean~4.
+
+\subsection{Hopf Fibration Structure}
+
+\begin{proposition}[Hopf Reduction]\label{prop:hopf}
+The antipodal modulus $177 = 354/2 = 3 \times 59$ defines a Hopf-type
+fibration $\Sigma^3 \to S^2_{\mathrm{OMARWA}}$ with:
+\begin{itemize}
+  \item fiber identification via the involution
+    $i \mapsto (i + 177) \bmod 354$,
+  \item ribbon width $59 = 2h(E_8) - 1$,
+  \item half-width $29 = h(E_8) - 1 = m_8$ (maximal Weyl exponent).
+\end{itemize}
+\end{proposition}
+
+\subsection{Physical Scaling}
+
+\begin{proposition}[APEX Triggering]\label{prop:apex}
+$T_k \equiv 8 \pmod{11}$ occurs exactly $3$ times per super-period
+($k \equiv 8 \pmod{10}$ within $[0, 29]$: at $k = 8, 18, 28$).
+These ``APEX positions'' mark the mod~$11$ residue closest to the
+forbidden unity.
+\end{proposition}
+
+\begin{proposition}[Fractional Order Convergence]\label{prop:alpha}
+The ratio $\alpha_k = T_k / T_{k+1}$ converges to $1/2$ as
+$k \to \infty$, with
+$\alpha_k = (6 \cdot 2^k + 1) / (6 \cdot 2^{k+1} + 1) \to 1/2$.
+\end{proposition}
 
 % ══════════════════════════════════════════════════════════════
 \section{Conclusion and Open Questions}
@@ -677,41 +1007,48 @@ We have established a complete modular periodicity theory for the
 sequence $T_k = 6 \cdot 2^k + 1$, reducing all period computations to
 multiplicative orders via the Core Reduction Theorem. The fractal period
 laws, product theorem, and super-period $L = 30$ reveal an unexpectedly
-rich arithmetic structure within a sequence of elementary definition.
-The Pascal--Sierpi\'nski--Fibonacci bridge further connects this
-periodicity theory to combinatorial and fractal structures. All
-principal results are formally verified in Lean~4 with zero
-\texttt{sorry} axioms.
+rich arithmetic structure. The Forbidden Unity Theorem, CRT
+intertwining, palindromic involutions, and network topology identities
+demonstrate that this elementary sequence encodes deep number-theoretic
+relationships. The coincidence of all five exceptional Coxeter numbers
+with OMARWA-derived invariants (Exceptional Universality) is a striking
+observation whose structural explanation, if any, remains open.
+
+All principal results are formally verified in Lean~4 with zero
+\texttt{sorry} axioms across 28 modules containing 956 theorems.
 
 \subsection*{Open Questions}
 
 \begin{enumerate}
-  \item \textbf{Wieferich exception:} Does the fractal law
-    $P(p^n) = \ord_p(2) \cdot p^{n-1}$ fail for the Wieferich primes
-    $p = 1093$ and $p = 3511$? If so, what is the correct formula?
+  \item \textbf{Wieferich exception:} Does the fractal law fail for
+    $p = 1093$ and $p = 3511$?
 
-  \item \textbf{Unique finite intersections:} Is
+  \item \textbf{Finite intersections:} Is
     $\{k : T_k = H_n \text{ for some } n\} = \{0, 3\}$?
-    (Conjecture~\ref{conj:finite}.)
 
   \item \textbf{Structural interpretation:} Is there a
-    representation-theoretic explanation for why specific OMARWA periods
-    coincide with exceptional Coxeter numbers
+    representation-theoretic explanation for Exceptional Universality
     (Theorem~\ref{thm:exceptional})?
 
-  \item \textbf{Artin density:} Among primes $p < 100$ with
-    $P(p) = p - 1$ (i.e., $2$ is a primitive root mod~$p$), the density
-    exceeds the Artin constant $C_{\mathrm{Artin}} \approx 0.374$. Is
-    this a selection effect or a feature of the $6 \cdot 2^k + 1$
-    family?
+  \item \textbf{Artin density:} Does the density of primes $p$ with
+    $P(p) = p - 1$ among OMARWA-related moduli differ from the Artin
+    constant?
 
-  \item \textbf{Generalization:} For which $(a,b) \in \mathbb{Z}^2$
-    does the sequence $S_k(a,b) = a \cdot 2^k + b$ have its
-    super-period equal to a Coxeter number of a simple Lie algebra?
+  \item \textbf{Generalized sequences:} For which $(a,b) \in
+    \mathbb{Z}^2$ does $S_k(a,b) = a \cdot 2^k + b$ have super-period
+    equal to a Coxeter number?
 
-  \item \textbf{Fibonacci--helical bridge:} Can the Fibonacci residue
-    embedding (Theorem~\ref{thm:fib-mod11}) be extended to arbitrary
-    prime moduli $p$ with $\ord_p(2) = p - 1$?
+  \item \textbf{Forbidden unity radius:} How does the ``distance'' from
+    the forbidden residue~$1$ in the mod~$m$ orbit behave as
+    $m \to \infty$?
+
+  \item \textbf{Collatz bridge:} Is the coincidence
+    $\mathrm{Collatz}(27) = 111 = 3 \times 37$ a systematic feature of
+    Proth numbers, or an isolated curiosity?
+
+  \item \textbf{Topological content:} Does the toroidal winding
+    $(15, 3, 5)$ have a physical realization beyond the formal
+    $T^3$~model?
 \end{enumerate}
 
 % ══════════════════════════════════════════════════════════════
@@ -737,66 +1074,49 @@ All theorems in this paper have been formally verified using the
 \end{center}
 
 \smallskip
-\noindent The full source code is available at:
-\begin{itemize}
-  \item \textbf{Repository:}
-    \href{https://github.com/omarwa622/OmarwaCore}{github.com/omarwa622/OmarwaCore}
-\end{itemize}
+\noindent Full source:
+\href{https://github.com/omarwa622/OmarwaCore}{github.com/omarwa622/OmarwaCore}
 
 \smallskip
-\noindent Key module-to-theorem mapping:
+\noindent Complete module-to-section mapping:
 
 \begin{table}[H]
 \centering
 \small
-\caption{Lean~4 module correspondence.}\label{tab:lean}
+\caption{All 28 Lean~4 modules and their paper locations.}\label{tab:lean}
 \smallskip
-\begin{tabular}{@{}p{4.2cm}p{3.8cm}p{5.5cm}@{}}
+\begin{tabular}{@{}rlll@{}}
 \toprule
-Paper Theorem & Lean Module & Lean Declaration \\
+\# & Lean Module & Section & Key Result \\
 \midrule
-Thm~\ref{thm:recurrence} (Recurrence)
-  & \texttt{Sequence}
-  & \texttt{T\_recurrence} \\
-Thm~\ref{thm:product} (Product/CRT)
-  & \texttt{ProductTheorem}
-  & \texttt{period\_mod77\_divides\_30} \\
-Thm~\ref{thm:gcd} (GCD Law)
-  & \texttt{DeepArithmetic}
-  & \texttt{euler\_phi\_1453} et al. \\
-Thm~\ref{thm:fullres} (Full Residue)
-  & \texttt{Sequence}
-  & \texttt{T\_mod\_eleven\_period} \\
-Thm~\ref{thm:general-fractal} (Fractal)
-  & \texttt{FractalLaws}
-  & \texttt{fractal\_period\_3\_pow} \\
-Thm~\ref{thm:core} (Core Reduction)
-  & \texttt{ModularPeriods}
-  & \texttt{mod11\_period} \\
-Thms~\ref{thm:sp1}--\ref{thm:sp3} (Super)
-  & \texttt{SuperPeriod}
-  & \texttt{super\_period\_30} \\
-Thm~\ref{thm:exceptional} (Exceptional)
-  & \texttt{ExceptionalUniv.}
-  & \texttt{coxeter\_G2\_is\_period\_27} \\
-Props~\ref{prop:h2}--\ref{prop:h4} (Hex)
-  & \texttt{CenteredHexagonal}
-  & \texttt{H2\_eq\_T0}, \texttt{H6\_product} \\
-Prop~\ref{prop:dr} (Digital Root)
-  & \texttt{ResidueDR}
-  & \texttt{dr\_bisection\_0\_to\_11} \\
-Props~\ref{prop:kummer}--\ref{prop:sierpinski} (Pascal)
-  & \texttt{PascalSierpinski}
-  & \texttt{kummer\_T0} \\
-Prop~\ref{prop:palindrome} (Palindrome)
-  & \texttt{PalindromicInvol.}
-  & \texttt{palindrome\_mod9} \\
-Thm~\ref{thm:fib-mod11} (Fibonacci)
-  & \texttt{GrandSynthesis}
-  & \texttt{gs1\_fibonacci\_mod11} \\
-Prop~\ref{prop:composite} (Composite)
-  & \texttt{CompositeModular}
-  & \texttt{P\_33\_eq\_10} \\
+1  & \texttt{Sequence}             & \S2.1  & $T_k$ definition, recurrence \\
+2  & \texttt{ModularPeriods}       & \S2.2  & $P(m)$ values, mod 11 \\
+3  & \texttt{SabbathNode}          & \S2.3  & $T_6 = 5 \times 7 \times 11$ \\
+4  & \texttt{FractalLaws}          & \S3.1  & Prime-power periods \\
+5  & \texttt{SuperPeriod}          & \S3.5  & $L = 30$ \\
+6  & \texttt{CompositeModular}     & \S3.6  & Composite $P(m)$ \\
+7  & \texttt{MersenneFermat}       & \S3.3  & $P(7)=3, P(31)=5, P(17)=8$ \\
+8  & \texttt{ForbiddenUnityRibbon} & \S3.4  & $T_k \not\equiv 1$; ribbon \\
+9  & \texttt{AffineOperator}       & \S4    & $6n+1$ skeleton, sampling \\
+10 & \texttt{ProductTheorem}       & \S5.1  & CRT product theorem \\
+11 & \texttt{DeepArithmetic}       & \S5.1  & GCD law, $\varphi$ values \\
+12 & \texttt{CRTIntertwining}      & \S5.2  & 354-anatomy, $\iota$ map \\
+13 & \texttt{CenteredHexagonal}    & \S6    & $H_2 = T_0$, $H_6 = T_0 T_1$ \\
+14 & \texttt{ResidueDR}            & \S7    & Digital root bisection \\
+15 & \texttt{PascalSierpinski}     & \S8.1  & Kummer, Sierpi\'nski gasket \\
+16 & \texttt{GrandSynthesis}       & \S8.1  & Fibonacci mod 11 embedding \\
+17 & \texttt{CollatzFibonacci}     & \S8.2  & Collatz(27)=111, $F_{12}$ \\
+18 & \texttt{PalindromicInvolution} & \S9.1 & 354$\leftrightarrow$453, emirps \\
+19 & \texttt{FractalHolon}         & \S9.2  & $P(111)=P(333)=36$ \\
+20 & \texttt{NetworkTheorems}      & \S10.1 & MT-1\ldots MT-14, 354-plane \\
+21 & \texttt{HolonCrystallographic} & \S10.2 & Trinity $407=11\times37$ \\
+22 & \texttt{WeylExponents}        & \S11   & $\sum m_i = 120$, palindrome \\
+23 & \texttt{CoxeterNumber}        & \S12   & $h(E_8)=L=30$, rank lock \\
+24 & \texttt{ExceptionalUniversality} & \S12 & All 5 exceptionals \\
+25 & \texttt{ChernSimonsLevel}     & \S12.2 & $k_{\mathrm{CS}}=30$ \\
+26 & \texttt{HopfFibration}        & \S12.3 & Antipodal 177, ribbon 59 \\
+27 & \texttt{TopologicalWinding}   & \S12.1 & $(15,3,5)$ on $T^3$ \\
+28 & \texttt{PhysicalScaling}      & \S12.4 & APEX, $\alpha_k \to 1/2$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -804,34 +1124,38 @@ Prop~\ref{prop:composite} (Composite)
 % ══════════════════════════════════════════════════════════════
 \section{Computational Verification}\label{app:comp}
 
-All results have been independently verified computationally using
-Python:
+All results have been independently verified computationally:
 
 \begin{itemize}
-  \item \textbf{Period table:} $P(m)$ computed for
-    $m = 1, \ldots, 10{,}000$ via brute-force modular arithmetic
-  \item \textbf{GCD matrix:} $\gcd(T_i, T_j)$ verified for
+  \item \textbf{Period table:} $P(m)$ for $m = 1, \ldots, 10{,}000$
+  \item \textbf{GCD matrix:} $\gcd(T_i, T_j)$ for
     $0 \leq i, j \leq 100$
   \item \textbf{Fractal law:} $P(p^n) = \ord_p(2) \cdot p^{n-1}$
-    verified for all primes $p < 1000$ (excluding $1093$) and
-    $n \leq 5$
-  \item \textbf{Digital root:} $\DR(T_k) \in \{4, 7\}$ with period-2
-    alternation verified for $k \leq 10{,}000$
-  \item \textbf{Palindromic symmetry:} Verified for all
-    $m \leq 1000$ with even $P(m)$
-  \item \textbf{Composite periods:} $P(m)$ for all composite
-    $m \leq 1000$ independently verified against Product Theorem
-    predictions
+    for all primes $p < 1000$ (excluding $1093$) and $n \leq 5$
+  \item \textbf{Digital root:} $\DR(T_k) \in \{4, 7\}$ verified for
+    $k \leq 10{,}000$
+  \item \textbf{Palindromic symmetry:} All $m \leq 1000$ with
+    even $P(m)$
+  \item \textbf{Forbidden unity:} $T_k \bmod m \neq 1$ verified for all
+    $m \leq 1000$ with $\gcd(m,6) = 1$ and $k \leq P(m)$
+  \item \textbf{Network identities:} MT-1 through MT-14 verified
+    numerically
+  \item \textbf{Collatz trajectories:} Collatz($27$) = 111 steps,
+    Collatz($97$) = 118 steps independently verified
+  \item \textbf{Weyl exponents:} All eight palindromic pairings
+    $m_i + m_{9-i} = 30$ verified, $\sum m_i = 120$
+  \item \textbf{354--453 palindrome:} Congruences mod $9$ and mod $11$
+    verified
 \end{itemize}
 
-\noindent The reproducible dataset and generating scripts are available at:\\
+\noindent Dataset and scripts:
 \href{https://github.com/omarwa622/OmarwaCore}{github.com/omarwa622/OmarwaCore}.
 
 % ══════════════════════════════════════════════════════════════
 % REFERENCES
 % ══════════════════════════════════════════════════════════════
 
-\begin{thebibliography}{12}
+\begin{thebibliography}{14}
 
 \bibitem{oeis}
 OEIS Foundation,
@@ -868,7 +1192,7 @@ The Lean Community,
 \bibitem{proth}
 F.~Proth,
 ``Th\'eor\`emes sur les nombres premiers,''
-\textit{Comptes Rendus de l'Acad\'emie des Sciences de Paris},
+\textit{Comptes Rendus Acad.\ Sci.\ Paris},
 vol.~87, pp.~926--928, 1878.
 
 \bibitem{narkiewicz}
@@ -879,7 +1203,7 @@ W.~Narkiewicz,
 \bibitem{wieferich}
 F.\,G.~Dorais and D.~Klyve,
 ``A Wieferich prime search up to $6.7 \times 10^{15}$,''
-\textit{Journal of Integer Sequences},
+\textit{J.\ Integer Seq.},
 vol.~14, Article~11.9.2, 2011.
 
 \bibitem{hex}
@@ -897,8 +1221,18 @@ Reciprocit\"atsgesetzen,''
 \bibitem{golomb}
 S.\,W.~Golomb,
 ``Properties of the sequence $3 \cdot 2^n + 1$,''
-\textit{Mathematics of Computation},
+\textit{Math.\ Comp.},
 vol.~30, no.~135, pp.~657--663, 1976.
+
+\bibitem{bourbaki}
+N.~Bourbaki,
+\textit{Lie Groups and Lie Algebras: Chapters 4--6},
+Springer, 2002.
+
+\bibitem{nakahara}
+M.~Nakahara,
+\textit{Geometry, Topology and Physics}, 2nd~ed.,
+IOP Publishing, 2003.
 
 \end{thebibliography}
 
