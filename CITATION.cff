@@ -7,6 +7,7 @@ authors:
     family-names: Çetintaş
     orcid: "https://orcid.org/0009-0003-2977-6048"
 repository-code: "https://github.com/omarwa622/OmarwaCore"
+doi: "10.5281/zenodo.19035570"
 abstract: >-
   Complete Lean 4 formalization of the OMARWA sequence T_k = 6·2^k + 1
   (OEIS A004119). Establishes modular period theory including Core Reduction
