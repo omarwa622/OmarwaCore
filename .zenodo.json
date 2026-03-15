@@ -1,0 +1,46 @@
+{
+  "title": "OmarwaCore: Lean 4 Formalization of T_k = 6·2^k + 1",
+  "upload_type": "software",
+  "description": "Complete Lean 4 formalization of the OMARWA sequence T_k = 6·2^k + 1 (OEIS A004119). 28 modules, 956 theorems + lemmas, 5,779 lines of proof code, zero sorry axioms. Establishes: Core Reduction Theorem P(m) = ord_{m'}(2), Fractal Period Laws P(p^n) = d_0·p^{n-1}, Product Theorem via CRT, Super-Period L = lcm(P(9),P(11)) = 30 with three independent derivations, GCD Law, Palindromic Involution, Pascal–Sierpiński–Fibonacci bridge, and Grand Synthesis five-way theorem. Built on Lean 4 v4.29.0-rc3 with Mathlib4.",
+  "creators": [
+    {
+      "name": "Çetintaş, Ömer",
+      "orcid": "0009-0003-2977-6048"
+    }
+  ],
+  "keywords": [
+    "OMARWA sequence",
+    "Lean 4",
+    "Mathlib",
+    "formal verification",
+    "number theory",
+    "modular arithmetic",
+    "multiplicative order",
+    "Coxeter number",
+    "integer sequence",
+    "OEIS A004119",
+    "fractal period law",
+    "super-period",
+    "Chinese Remainder Theorem"
+  ],
+  "license": "Apache-2.0",
+  "version": "1.0.0",
+  "language": "eng",
+  "communities": [
+    {"identifier": "mathematics"},
+    {"identifier": "zenodo"}
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/omarwa622/OmarwaCore",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://oeis.org/A004119",
+      "relation": "references",
+      "scheme": "url"
+    }
+  ],
+  "notes": "All 956 theorems are machine-verified with zero sorry axioms. The formalization covers modular periodicity, fractal laws, CRT product theorem, super-period derivations, GCD divisibility, palindromic involution, and the grand synthesis five-way bridge theorem."
+}

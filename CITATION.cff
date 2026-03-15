@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+title: "OmarwaCore: Lean 4 Formalization of the OMARWA Sequence T_k = 6·2^k + 1"
+message: "If you use this software, please cite it as below."
+type: software
+authors:
+  - given-names: Ömer
+    family-names: Çetintaş
+    orcid: "https://orcid.org/0009-0003-2977-6048"
+repository-code: "https://github.com/omarwa622/OmarwaCore"
+abstract: >-
+  Complete Lean 4 formalization of the OMARWA sequence T_k = 6·2^k + 1
+  (OEIS A004119). Establishes modular period theory including Core Reduction
+  Theorem, Fractal Period Laws, Product Theorem (CRT), Super-Period L = 30,
+  GCD Law, Palindromic Involution, and Grand Synthesis five-way bridge.
+  28 modules, 956 theorems + lemmas, 0 sorry axioms.
+  Built on Lean 4 v4.29.0-rc3 with Mathlib4.
+keywords:
+  - OMARWA sequence
+  - Lean 4
+  - Mathlib
+  - formal verification
+  - number theory
+  - modular arithmetic
+  - Coxeter number
+  - integer sequence
+  - OEIS A004119
+license: Apache-2.0
+version: 1.0.0
+date-released: "2026-03-15"
