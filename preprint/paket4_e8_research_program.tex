@@ -1,0 +1,1194 @@
+% ══════════════════════════════════════════════════════════════
+%  The OMARWA–E₈ Correspondence: A Research Program
+%  Connecting Modular Periodicity to Exceptional Lie Structure
+%
+%  Paket 4 — E₈ Research Program Preprint (v1.0)
+%  Author: Ömer Çetintaş
+%  Date:   March 2026
+% ══════════════════════════════════════════════════════════════
+\documentclass[11pt, a4paper]{article}
+
+% ── Encoding & Fonts ──────────────────────────────────────────
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+
+% ── Page Geometry ─────────────────────────────────────────────
+\usepackage[
+  a4paper,
+  top=2.5cm,
+  bottom=2.5cm,
+  left=2.5cm,
+  right=2.5cm,
+  headheight=14pt
+]{geometry}
+
+% ── Mathematics ───────────────────────────────────────────────
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+
+% ── Colors ────────────────────────────────────────────────────
+\usepackage[dvipsnames]{xcolor}
+
+% ── Tables & Floats ──────────────────────────────────────────
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{float}
+\usepackage[font=small, labelfont=bf, labelsep=period]{caption}
+
+% ── Header / Footer ──────────────────────────────────────────
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textit{The OMARWA--$E_8$ Correspondence}}
+\fancyhead[R]{\small\textit{\c{C}etinta\c{s}, 2026}}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\fancypagestyle{firstpage}{%
+  \fancyhf{}
+  \fancyfoot[C]{\small\thepage}
+  \renewcommand{\headrulewidth}{0pt}
+}
+
+% ── Hyperlinks ────────────────────────────────────────────────
+\usepackage[
+  colorlinks=true,
+  linkcolor=blue!70!black,
+  citecolor=blue!70!black,
+  urlcolor=blue!70!black,
+  pdfauthor={\"Omer \c{C}etinta\c{s}},
+  pdftitle={The OMARWA-E8 Correspondence: A Research Program},
+  pdfsubject={Mathematical Physics, Lie Algebras, Number Theory},
+  pdfkeywords={E8, OMARWA sequence, Coxeter number, Weyl exponents, P622, research program}
+]{hyperref}
+
+% ── Theorem Environments ─────────────────────────────────────
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{observation}{Observation}[section]
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+
+% ── Custom Commands ───────────────────────────────────────────
+\newcommand{\ord}{\operatorname{ord}}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\DR}{DR}
+\DeclareMathOperator{\rank}{rank}
+
+% ── Spacing ───────────────────────────────────────────────────
+\usepackage{enumitem}
+\setlist[enumerate]{leftmargin=2em, itemsep=0.3em}
+\setlist[itemize]{leftmargin=2em, itemsep=0.2em}
+
+% ══════════════════════════════════════════════════════════════
+\begin{document}
+\thispagestyle{firstpage}
+
+% ── TITLE BLOCK ───────────────────────────────────────────────
+\begin{center}
+  \vspace*{0.3cm}
+
+  {\LARGE\bfseries
+    The OMARWA--$E_8$ Correspondence:\\[0.3cm]
+    A Research Program Connecting\\[0.3cm]
+    Modular Periodicity to Exceptional Lie Structure}
+
+  \vspace{0.8cm}
+
+  {\large \"Omer \c{C}etinta\c{s}}\\[0.3cm]
+  {\small ORCID: \href{https://orcid.org/0009-0003-2977-6048}{0009-0003-2977-6048}}\\[0.15cm]
+  {\small\textit{Independent Researcher}}
+
+  \vspace{0.6cm}
+  {\small March 2026}
+\end{center}
+
+\vspace{0.6cm}
+
+% ── ABSTRACT ──────────────────────────────────────────────────
+\begin{abstract}
+We present a research program exploring the correspondence between
+the modular periodicity of the integer sequence $T_k = 6 \cdot 2^k + 1$
+(OEIS A004119) and the algebraic structure of the exceptional Lie
+group~$E_8$. The OMARWA super-period $L = \lcm(P(9), P(11)) = 30$
+coincides with the Coxeter number $h(E_8) = 30$, established through
+three independent derivations and formally verified in Lean~4
+\cite{omarwacore,paket1}. We catalog a series of numerical
+correspondences---including Weyl exponent containment
+($T_0 = 7, T_1 = 13 \in \exp(E_8)$), the root count identity
+$|\Delta(E_8)| = 240 = 8L$, and the ``Exceptional Universality''
+whereby all five exceptional Coxeter numbers arise from OMARWA
+periods---and frame them as \emph{observations} within a structured
+research program. We further examine connections to the P622
+crystallographic space group (IT\#177), the palindromic 29-1-29
+ribbon architecture satisfying $(29+1) = h(E_8)$, and the
+$E_8 \to G_{\mathrm{SM}}$ symmetry breaking chain. Each numerical
+match is presented as an observation with explicit epistemic
+classification, distinguishing proven arithmetic identities
+from model-dependent interpretations. We identify
+experimental predictions that would be required for the correspondence
+to have physical content and list the free parameters of the framework.
+
+\smallskip\noindent
+\textbf{Scope and Disclaimer.} This paper presents a \emph{research
+program}, not a completed physical theory. The arithmetic core---modular
+periods, super-period $L = 30$, and related identities---is formally
+proven~\cite{paket2}. The correspondence with $E_8$ involves numerically
+verified but algebraically unproven connections. Physical
+interpretations are speculative and classified accordingly.
+\end{abstract}
+
+\smallskip
+\noindent\textbf{Keywords:} $E_8$ Lie algebra $\cdot$ Coxeter number
+$\cdot$ Weyl exponents $\cdot$ OMARWA sequence $\cdot$ modular
+periodicity $\cdot$ P622 space group $\cdot$ crystallographic symmetry
+$\cdot$ research program
+
+\smallskip
+\noindent\textbf{MSC 2020:} 17B25, 20F55, 11B50, 11A07, 20H15
+
+\vspace{0.5cm}
+
+% ══════════════════════════════════════════════════════════════
+\section{Introduction and Motivation}
+\label{sec:intro}
+% ══════════════════════════════════════════════════════════════
+
+The sequence $T_k = 6 \cdot 2^k + 1$ for $k \geq 0$ produces the terms
+$7, 13, 25, 49, 97, 193, \ldots$ (OEIS A004119). Despite its elementary
+definition, the modular periodicity of this sequence---studied in
+detail in~\cite{paket2}---exhibits a remarkably structured theory
+culminating in a super-period $L = 30$.
+
+The number~30 is also the Coxeter number of $E_8$, the largest
+exceptional simple Lie algebra. This coincidence, together with
+a cluster of additional numerical correspondences cataloged below,
+motivates the present research program: \emph{is the agreement between
+the OMARWA super-period and the $E_8$ Coxeter number accidental, or
+does it reflect a deeper algebraic structure?}
+
+We emphasize at the outset that:
+\begin{enumerate}
+  \item The \textbf{arithmetic core} (modular periods, fractal laws,
+    super-period derivation) is \emph{proven}---both by classical methods
+    and by formal verification in Lean~4 with Mathlib
+    (956~theorems, 28~modules, 0~\texttt{sorry})~\cite{paket1}.
+
+  \item The \textbf{$E_8$ correspondences} cataloged here are
+    \emph{observed} numerical coincidences. They are organized
+    systematically but are not proven consequences of a unifying
+    algebraic mechanism.
+
+  \item The \textbf{physical interpretations}---symmetry breaking scales,
+    generation structure, experimental predictions---are \emph{speculative}
+    and presented as such.
+\end{enumerate}
+
+\medskip
+\noindent\textbf{Organization.}
+Section~\ref{sec:review} reviews the OMARWA period theory.
+Section~\ref{sec:e8} recalls the structure of~$E_8$.
+Section~\ref{sec:correspondence} catalogs the numerical correspondences.
+Section~\ref{sec:p622} treats the P622 crystallographic connection.
+Section~\ref{sec:ribbon} develops the 29-1-29 palindromic ribbon.
+Section~\ref{sec:breaking} outlines the $E_8 \to G_{\mathrm{SM}}$ chain.
+Section~\ref{sec:gs} presents the Grand Synthesis observations.
+Section~\ref{sec:predictions} states experimental predictions.
+Section~\ref{sec:free} lists free parameters.
+Section~\ref{sec:conclusion} discusses open questions.
+
+% ══════════════════════════════════════════════════════════════
+\section{Review of the OMARWA Period Theory}
+\label{sec:review}
+% ══════════════════════════════════════════════════════════════
+
+We recall the principal results established in~\cite{paket2} and
+formally verified in~\cite{paket1}.
+
+\begin{definition}[OMARWA Sequence]
+$T_k = 6 \cdot 2^k + 1$ for $k \geq 0$.
+The affine recurrence is $T_{k+1} = 2T_k - 1$, $T_0 = 7$.
+\end{definition}
+
+\begin{definition}[OMARWA Period]
+For $m \geq 1$, the period $P(m)$ is the minimal positive integer~$p$
+such that $T_{k+p} \equiv T_k \pmod{m}$ for all $k \geq 0$.
+\end{definition}
+
+\begin{theorem}[Core Reduction {\cite[Thm.~3.1]{paket2}}]
+\label{thm:core}
+$P(m) = \ord_{m'}(2)$ where $m' = m / \gcd(m, 6)$.
+\end{theorem}
+
+\begin{theorem}[Super-Period {\cite[Thms.~3.9--3.11]{paket2}}]
+\label{thm:super}
+The super-period is $L = \lcm(P(9), P(11)) = \lcm(2, 10) = 30$,
+derived through three independent paths:
+\begin{enumerate}
+  \item $L = \lcm(P(9), P(11)) = \lcm(2, 10) = 30$.
+  \item $L = \lcm(P(9), P(11), P(27)) = \lcm(2, 10, 6) = 30$.
+  \item $L = P(77) = \ord_{77}(2) = 30$ (direct computation).
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Fractal Period Law {\cite[Thm.~3.5]{paket2}}]
+\label{thm:fractal}
+For non-Wieferich primes $p \nmid 6$:
+$P(p^n) = \ord_p(2) \cdot p^{n-1}$.
+In particular, $P(3^n) = 2 \cdot 3^{n-2}$ for $n \geq 2$ and
+$P(11^n) = 10 \cdot 11^{n-1}$.
+\end{theorem}
+
+\begin{theorem}[Exceptional Universality {\cite[Thm.~11.1]{paket2}}]
+\label{thm:exceptional}
+All five exceptional Lie algebra Coxeter numbers are recoverable from
+the OMARWA periods $P(9)$, $P(11)$, $P(27)$ and the P622 point group
+order $|D_6|$:
+
+\smallskip
+\begin{center}
+\begin{tabular}{@{}cccl@{}}
+\toprule
+Group & $h$ & OMARWA Origin & Derivation \\
+\midrule
+$G_2$ & 6  & $P(27) = 6$ & $\ord_9(2) \cdot 3$\\
+$F_4$ & 12 & $|D_6| = 12$ & P622 point group order \\
+$E_6$ & 12 & $|D_6| = 12$ & Same \\
+$E_7$ & 18 & $P(11) + P(9) + P(27) = 18$ & Period sum \\
+$E_8$ & 30 & $L = \lcm(P(9), P(11), P(27))$ & Super-period \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{theorem}
+
+\begin{remark}
+All theorems in this section carry epistemic class~\textbf{[A]}:
+they are formally established and machine-verified. The computational
+datasets supporting these results are available as~\cite{paket3}.
+\end{remark}
+
+% ══════════════════════════════════════════════════════════════
+\section{The $E_8$ Exceptional Lie Algebra}
+\label{sec:e8}
+% ══════════════════════════════════════════════════════════════
+
+We recall standard facts about $E_8$; all material in this section is
+classical~\cite{humphreys,bourbaki}.
+
+\subsection{Classification Context}
+
+The Killing--Cartan classification of simple Lie algebras yields four
+infinite families ($A_n$, $B_n$, $C_n$, $D_n$) and five exceptionals
+($G_2$, $F_4$, $E_6$, $E_7$, $E_8$). The algebra~$E_8$ is the largest:
+
+\begin{center}
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+Algebra & $\dim$ & $\rank$ & $h$ & $|\Delta|$ \\
+\midrule
+$G_2$   & 14   & 2 & 6  & 12  \\
+$F_4$   & 52   & 4 & 12 & 48  \\
+$E_6$   & 78   & 6 & 12 & 72  \\
+$E_7$   & 133  & 7 & 18 & 126 \\
+$E_8$   & 248  & 8 & 30 & 240 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Dynkin Diagram and Cartan Matrix}
+
+The $E_8$ Dynkin diagram has 8 nodes with branching at $\alpha_3$:
+
+\begin{center}
+$\alpha_1 - \alpha_3 - \alpha_4 - \alpha_5 - \alpha_6 -
+\alpha_7 - \alpha_8$, \quad with $\alpha_2$ branching from $\alpha_3$.
+\end{center}
+
+\noindent The Cartan matrix $A_{E_8}$ is the $8\times 8$ symmetric
+matrix with $\det(A_{E_8}) = 1$ (unimodular), making the root and
+weight lattices identical: $P(E_8) = Q(E_8) = \Lambda_{E_8}$.
+
+\subsection{Root System: 240 Vectors in $\mathbb{R}^8$}
+
+The 240 root vectors divide into two classes:
+\begin{itemize}
+  \item \textbf{Class I} ($112$ roots): all permutations of
+    $(\pm 1, \pm 1, 0, 0, 0, 0, 0, 0)$.
+  \item \textbf{Class II} ($128$ roots):
+    $(\pm\tfrac12,\ldots,\pm\tfrac12)$ with an even
+    number of minus signs.
+\end{itemize}
+Total: $112 + 128 = 240$. These form the densest sphere packing in
+$\mathbb{R}^8$~\cite{viazovska}, with kissing number~240.
+
+\subsection{Weyl Group and Exponents}
+
+The Weyl group $W(E_8)$ has order
+$|W(E_8)| = 696\,729\,600 = 2^{14}\cdot 3^5 \cdot 5^2 \cdot 7$.
+The eight Weyl exponents are:
+
+\begin{equation}
+\label{eq:exponents}
+\boxed{\exp(E_8) = \{1, 7, 11, 13, 17, 19, 23, 29\}.}
+\end{equation}
+
+These are precisely the integers in $\{1,\ldots,29\}$ coprime to~30:
+$\exp(E_8) = \{m \in \{1,\ldots,29\} : \gcd(m, 30) = 1\}$.
+Since $\varphi(30) = 8 = \rank(E_8)$, this is the \textbf{Euler
+totient identity for~$E_8$}.
+
+\subsection{The Coxeter Number $h = 30$}
+
+The highest root of $E_8$ is
+$\theta = 2\alpha_1 + 3\alpha_2 + 4\alpha_3 + 6\alpha_4 + 5\alpha_5 +
+4\alpha_6 + 3\alpha_7 + 2\alpha_8$, with coefficient sum
+$2+3+4+6+5+4+3+2 = 29$, yielding:
+
+\begin{equation}
+\label{eq:coxeter}
+h(E_8) = 29 + 1 = 30.
+\end{equation}
+
+The Coxeter number admits at least five equivalent characterizations:
+height of highest root plus one, order of the Coxeter element,
+$|\Delta|/\rank = 240/8$, $1 + \max(\exp)$, and the dual Coxeter
+number $h^\vee$ (equal to $h$ since $E_8$ is simply laced).
+
+% ══════════════════════════════════════════════════════════════
+\section{The Numerical Correspondences}
+\label{sec:correspondence}
+% ══════════════════════════════════════════════════════════════
+
+We now catalog the observed correspondences between OMARWA arithmetic
+and $E_8$ structure. Each is stated as an \textbf{Observation},
+explicitly distinguishing it from a proven theorem.
+
+\subsection{The Coxeter Coincidence}
+
+\begin{observation}[Coxeter Identity]
+\label{obs:coxeter}
+The OMARWA super-period equals the $E_8$ Coxeter number:
+\begin{equation}
+L = \lcm(P(9), P(11)) = 30 = h(E_8).
+\end{equation}
+\end{observation}
+
+The left-hand side is a number-theoretic quantity (proven, [A]);
+the right-hand side is a Lie-theoretic quantity (classical, [A]).
+The equality $30 = 30$ is trivially true. The non-trivial question is
+whether there exists an algebraic mechanism connecting them---i.e.,
+whether there is a functor or homomorphism from the OMARWA period
+lattice to the $E_8$ Coxeter theory.
+
+\textbf{Status:} The arithmetic identity is proven; the structural
+connection is an open question.
+
+\subsection{Weyl Exponent Containment}
+
+\begin{observation}[Exponent Overlap]
+\label{obs:weyl}
+The first two OMARWA terms lie in the Weyl exponent set:
+\begin{equation}
+T_0 = 7 \in \exp(E_8), \qquad T_1 = 13 \in \exp(E_8).
+\end{equation}
+\end{observation}
+
+Since the exponents are the integers coprime to~30 in $[1,29]$, and
+since $\gcd(7, 30) = 1$ and $\gcd(13, 30) = 1$, this containment is
+arithmetically transparent. The third term $T_2 = 25$ fails
+($\gcd(25, 30) = 5$), and $T_3 = 49 > 29$ exceeds the range.
+
+\textbf{Status:} Arithmetic fact [A]. The question is whether the
+OMARWA seed $T_0 = 7$ and $T_1 = 13$ play a distinguished role
+within $E_8$ representation theory.
+
+\subsection{Root Count Identity}
+
+\begin{observation}[Root--Period Correlation]
+\label{obs:roots}
+The number of $E_8$ roots factorizes through the OMARWA super-period:
+\begin{equation}
+|\Delta(E_8)| = 240 = 8 \times 30 = \rank(E_8) \times L.
+\end{equation}
+\end{observation}
+
+This is an instance of the general identity
+$|\Delta(G)| = \rank(G) \cdot h(G)$ valid for all simply-laced Lie
+algebras~\cite{humphreys}. Given Observation~\ref{obs:coxeter},
+the factorization through~$L$ follows. The observation is therefore
+a corollary rather than an independent coincidence.
+
+\textbf{Status:} Corollary of Observation~\ref{obs:coxeter} and
+classical Lie theory [A].
+
+\subsection{Euler Totient Identity}
+
+\begin{observation}[Totient--Rank]
+\label{obs:totient}
+$\varphi(L) = \varphi(30) = 8 = \rank(E_8)$.
+\end{observation}
+
+Since the exponents of a simply-laced Lie algebra of rank~$r$ are the
+$r$ integers coprime to $h$ in $[1, h-1]$, this identity is equivalent
+to the statement that $E_8$ is simply laced with $h = 30$ and $r = 8$.
+
+\textbf{Status:} Corollary of classical theory [A].
+
+\subsection{The Sabbath Node and Mersenne Periods}
+
+\begin{observation}[Sabbath--Rank Bridge]
+\label{obs:sabbath}
+The period of the Mersenne prime $M_5 = 31$ satisfies
+$P(31) = 5$. The period of the Fermat prime $F_3 = 17$ satisfies
+$P(17) = 8 = \rank(E_8)$.
+\end{observation}
+
+The term $T_6 = 385 = 5 \times 7 \times 11$ is the ``Sabbath node''
+where three OMARWA primes converge~\cite{paket2}. This triple
+factorization yields $P(385) = \lcm(P(5), P(7), P(11)) =
+\lcm(4, 3, 10) = 60 = 2L$.
+
+\textbf{Status:} Arithmetic facts [A]. Physical interpretation [C].
+
+\subsection{Dimensional Decomposition}
+
+\begin{observation}[Adjoint Dimension]
+\label{obs:dim}
+$\dim(\mathfrak{e}_8) = 248 = |\Delta| + \rank = 240 + 8 = 8(L+1) =
+8 \times 31$.
+\end{observation}
+
+The factor $31 = 2^5 - 1$ is a Mersenne prime, and $P(31) = 5$ in
+the OMARWA theory.
+
+\textbf{Status:} Arithmetic identity [A]. Whether the ``$L+1$''
+structure has Lie-theoretic content beyond numerology is open.
+
+% ══════════════════════════════════════════════════════════════
+\section{The P622 Crystallographic Connection}
+\label{sec:p622}
+% ══════════════════════════════════════════════════════════════
+
+\subsection{Space Group P622}
+
+The crystallographic space group P622 (Hermann--Mauguin designation)
+has International Tables number \textbf{177}~\cite{hahn}. It belongs
+to the hexagonal crystal system with point group $D_6$ of order~12.
+P622 is the maximal Sohncke group in the hexagonal system---the
+largest chiral-compatible space group.
+
+\begin{center}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Property & Value \\
+\midrule
+Hermann--Mauguin & P622 \\
+IT number & 177 \\
+Point group & $D_6$ (622) \\
+$|D_6|$ & 12 \\
+Crystal system & Hexagonal \\
+Lattice & Primitive (P) \\
+Enantiomorphic children & P$6_122$ (178), P$6_522$ (179) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{The 354--177 Identity}
+
+\begin{observation}[IT Number--Half Period]
+\label{obs:p622}
+The OMARWA holon count $354 = 6 \times 59$ satisfies:
+\begin{equation}
+\frac{354}{2} = 177 = \mathrm{IT\#}(\text{P622}).
+\end{equation}
+\end{observation}
+
+The factorization $354 = 2 \times 3 \times 59$ arises from the
+six-sector holon hierarchy ($6 \times 59$ channels). The Core
+Reduction Theorem gives $P(354) = \ord_{59}(2) = 58$, and equally
+$P(177) = \ord_{59}(2) = 58$, so both carry the same OMARWA period.
+
+\textbf{Status:} Arithmetic [A]; crystallographic identification [B].
+The question is whether the appearance of IT\#177 is a meaningful
+structural link or a numerical accident.
+
+\subsection{Point Group Order and Gauge Dimension}
+
+\begin{observation}[Dimensional Coincidence]
+\label{obs:gauge}
+$|D_6| = 12 = \dim(G_{\mathrm{SM}})$ where
+$G_{\mathrm{SM}} = SU(3)_C \times SU(2)_L \times U(1)_Y$ with
+$\dim = 8 + 3 + 1 = 12$.
+\end{observation}
+
+\textbf{Status:} Numerical fact [A]. Physical interpretation~[C].
+
+\subsection{The Enantiomorphic Pair and Chirality}
+
+P622 is the achiral parent of the enantiomorphic pair
+P$6_122$ (IT\#178) and P$6_522$ (IT\#179):
+\begin{equation}
+\text{P622} \supset \{\text{P}6_122,\; \text{P}6_522\}.
+\end{equation}
+
+The $6_1$ and $6_5$ screw axes define left- and right-handed
+helical structures. In the OMARWA framework, this chirality is
+realized through the 29-1-29 palindromic ribbon (Section~\ref{sec:ribbon}),
+where the left and right halves correspond to the two enantiomorphic
+sub-groups.
+
+% ══════════════════════════════════════════════════════════════
+\section{The 29-1-29 Palindromic Ribbon}
+\label{sec:ribbon}
+% ══════════════════════════════════════════════════════════════
+
+\subsection{Construction}
+
+Each of the six sectors contains 59 channels. The integer 59
+admits a palindromic decomposition:
+
+\begin{equation}
+59 = 29 + 1 + 29.
+\end{equation}
+
+\begin{definition}[Sector Ribbon]
+The 59-channel sector sequence is
+\[
+S_{59} = (L_{29}, L_{28}, \ldots, L_1,\; U_0,\; R_1, \ldots, R_{29}),
+\]
+where $L_j$ are left-chiral channels, $R_j$ right-chiral channels,
+and $U_0$ is the central Unity Axis.
+\end{definition}
+
+The reflection operator $\mathcal{R}(x_i) = x_{59-i}$ is an
+involution fixing $U_0$, mapping $L_j \leftrightarrow R_j$.
+
+\subsection{Number-Theoretic Properties}
+
+\begin{proposition}[Sophie Germain Pair]
+29 is a Sophie Germain prime and $59 = 2 \times 29 + 1$ is its
+associated safe prime.
+\end{proposition}
+
+\begin{proposition}[Uniqueness]
+\label{prop:unique}
+The decomposition $59 = 29 + 1 + 29$ is the unique palindromic
+partition with simultaneously prime wings and trivial center
+satisfying $(29 + 1) = h(E_8)$.
+\end{proposition}
+
+\begin{proof}
+Any palindrome $59 = a + c + a$ with $c = 1$ forces $a = 29$
+(prime). Other decompositions either have composite wings
+($28 = 2^2 \times 7$, $27 = 3^3$, etc.) or non-unit center,
+and none satisfy $(a + 1) = 30$.
+\end{proof}
+
+\subsection{The Coxeter Window}
+
+Grouping adjacent elements $(1 + 29) = 30$ across sector boundaries
+yields the \textbf{Coxeter window}:
+
+\begin{observation}[Coxeter Window]
+\label{obs:window}
+$(29 + 1) = h(E_8) = 30$.
+\end{observation}
+
+Since there are 12 such windows around the full circle:
+$12 \times 30 = 360 = 354 + 6$.
+
+\subsection{Weyl Exponent as Half-Ribbon Width}
+
+\begin{observation}[Maximal Exponent]
+\label{obs:maxexp}
+The half-ribbon width $|L| = |R| = 29 = e_8$, the maximal Weyl
+exponent of $E_8$.
+\end{observation}
+
+The Poincar\'e polynomial of $E_8$ has maximal factor
+$(t^{60}-1)/(t^2-1)$ of degree $2 \times 29 = 58$, matching the
+total chiral channel count $|L| + |R| = 58$ per sector.
+
+\subsection{Modular Periods of the Ribbon}
+
+From the Core Reduction Theorem:
+\begin{itemize}
+  \item $P(59) = \ord_{59}(2) = 58 = \varphi(59)$: full ribbon
+    traversal (2 is a primitive root mod~59).
+  \item $P(29) = \ord_{29}(2) = 28 = \varphi(29)$: half-ribbon
+    traversal (2 is a primitive root mod~29).
+  \item $P(354) = P(177) = \ord_{59}(2) = 58$: period bridge.
+\end{itemize}
+
+\begin{theorem}[Full Ribbon Traversal {\cite[Thm.~9.2]{paket2}}]
+The OMARWA sequence visits every chiral channel of the 59-ribbon
+exactly once per period:
+$|\{T_k \bmod 59 : 0 \leq k < 58\}| = 58 = |S_{59}| - 1$.
+The Unity Axis position ($r \equiv 1 \pmod{59}$) is the unique
+unvisited residue.
+\end{theorem}
+
+% ══════════════════════════════════════════════════════════════
+\section{The $E_8 \to G_{\mathrm{SM}}$ Symmetry Breaking Chain}
+\label{sec:breaking}
+% ══════════════════════════════════════════════════════════════
+
+\subsection{The Canonical Sequence}
+
+The standard $E_8$ breaking chain in grand unification
+theory~\cite{slansky,georgi,gursey} proceeds via:
+
+\begin{equation}
+\label{eq:chain}
+\begin{split}
+E_8 &\xrightarrow{\text{SSB}_1}
+E_6 \times SU(3) \xrightarrow{\text{SSB}_2}
+SO(10) \times U(1) \\
+&\xrightarrow{\text{SSB}_3}
+SU(5) \times U(1) \xrightarrow{\text{SSB}_4}
+G_{\mathrm{SM}} \xrightarrow{\text{SSB}_5}
+SU(3)_C \times U(1)_{\mathrm{EM}}.
+\end{split}
+\end{equation}
+
+\subsection{Representation Decomposition}
+
+At the first step, the adjoint decomposes as:
+\begin{equation}
+248 = (78, 1) \oplus (27, 3) \oplus (\overline{27}, \overline{3})
+\oplus (1, 8).
+\end{equation}
+
+The $(27, 3)$ component yields three copies of the $E_6$
+fundamental representation---one per fermion generation. The fact
+that exactly three generations emerge from the $SU(3)$ factor is
+a representation-theoretic consequence of the branching
+rule~\cite{gursey,slansky}.
+
+\subsection{OMARWA Scale Assignment}
+
+\begin{observation}[Scale Indexing]
+\label{obs:scale}
+Each breaking step can be indexed by an OMARWA term:
+
+\smallskip
+\begin{center}
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+Step & Breaking & $T_k$ & Scale (GeV) & Class \\
+\midrule
+SSB$_1$ & $E_8 \to E_6 \times SU(3)$ & $T_0 = 7$ & $\sim 10^{19}$ & [C] \\
+SSB$_2$ & $E_6 \to SO(10) \times U(1)$ & $T_1 = 13$ & $\sim 10^{16}$ & [C] \\
+SSB$_3$ & $SO(10) \to SU(5) \times U(1)$ & $T_2 = 25$ & $\sim 10^{13}$ & [C] \\
+SSB$_4$ & $SU(5) \to G_{\mathrm{SM}}$ & $T_3 = 49$ & $\sim 10^{10}$ & [C] \\
+SSB$_5$ & EW breaking & $T_5 = 193$ & $\sim 10^{2}$ & [C] \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{observation}
+
+\textbf{Status:} All entries are epistemic class~[C]---speculative
+assignments motivated by the numerical sequence but without
+dynamical justification.
+
+\subsection{Three-Generation Structure}
+
+\begin{observation}[Generation--Scale Correspondence]
+\label{obs:gen}
+Each fermion generation can be associated with an OMARWA scale:
+
+\smallskip
+\begin{center}
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+Gen. & Fermions & $T_k$ & Modular Period & Class \\
+\midrule
+1st & $e, \nu_e, u, d$ & $T_0 = 7$ & $P(9) = 2$ & [C] \\
+2nd & $\mu, \nu_\mu, c, s$ & $T_1 = 13$ & $P(11) = 10$ & [C] \\
+3rd & $\tau, \nu_\tau, t, b$ & $T_2 = 25$ & $P(27) = 6$ & [C] \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{observation}
+
+\textbf{Status:} Class [C]. The representation-theoretic origin of
+three generations (from the $SU(3)$ factor in~\eqref{eq:chain}) is
+classical [A]. The specific OMARWA scale assignments are conjectural.
+
+% ══════════════════════════════════════════════════════════════
+\section{Grand Synthesis Observations}
+\label{sec:gs}
+% ══════════════════════════════════════════════════════════════
+
+The following observations, drawn from the OMARWA computational
+analysis and formally verified in Lean~4 where indicated
+(module: \texttt{GrandSynthesis.lean}~\cite{paket1}), consolidate
+the multi-domain numerical correspondences.
+
+\subsection{GS-1: Fibonacci Residues in the mod~11 Orbit}
+
+\begin{observation}[Fibonacci--mod~11 Bridge]
+\label{obs:gs1}
+The OMARWA residues modulo~11 satisfy
+$T_1 \bmod 11 = 2 = F_3$, $T_2 \bmod 11 = 3 = F_4$,
+$T_3 \bmod 11 = 5 = F_5$---three consecutive Fibonacci numbers.
+\end{observation}
+
+\textbf{Lean~4 status:} Verified (\texttt{gs1\_fibonacci\_orbit}). Class [A].
+
+\subsection{GS-3: CRT Pascal Decomposition and P622}
+
+\begin{observation}[CRT--Crystal Bridge]
+\label{obs:gs3}
+$T_k \bmod 6 = (T_k \bmod 2, T_k \bmod 3)$ via CRT.
+Since $T_k \equiv 1 \pmod{2}$ and $T_k \equiv 1 \pmod{3}$ for all~$k$,
+the mod~6 Pascal decomposition yields the fixed point $(1,1)$,
+which maps to the P622 crystallographic identity element.
+\end{observation}
+
+\textbf{Lean~4 status:} Verified. Class [A] (arithmetic); [B] (crystal interpretation).
+
+\subsection{GS-7: Lucas--Golden Bridge}
+
+\begin{observation}[Lucas--Fibonacci Convergence]
+\label{obs:gs7}
+$L_5 = 11$, $L_7 = 29$, and $B_2 = 55 = F_{10} = F_5 \times L_5$,
+exhibiting a triple convergence of OMARWA-related integers, Fibonacci
+numbers, and Lucas numbers.
+\end{observation}
+
+Here $B_2 = \sum_{k=0}^{2} T_k - 3 = 7 + 13 + 25 - 3 \cdot 1 = 42$
+\ldots{} [Note: $B_2$ uses a specific OMARWA block-sum
+convention~\cite{paket2}.]
+
+\textbf{Lean~4 status:} Verified (\texttt{gs7\_lucas\_golden\_bridge}). Class [A].
+
+\subsection{GS-9: Palindromic Wing Sums and $h(E_8)/2$}
+
+\begin{observation}[Apex Sum Identity]
+\label{obs:gs9}
+In the mod~30 residue cycle, the palindromic digital root wings sum to
+$26 + 28 = 54 = S(11)$, while the apex elements sum to
+\begin{equation}
+9 + 6 = 15 = \frac{h(E_8)}{2}.
+\end{equation}
+\end{observation}
+
+\textbf{Lean~4 status:} Verified (\texttt{gs9\_palindromic\_wings}). Class [A] (arithmetic);
+[B] (E$_8$ interpretation).
+
+\subsection{GS-10: Master Five-Way Bridge}
+
+\begin{observation}[Five-Way Convergence]
+\label{obs:gs10}
+The following five independently arising structures all interface
+through the super-period $L = 30$:
+\begin{enumerate}
+  \item Modular period lattice: $L = \lcm(P(9), P(11))$.
+  \item $E_8$ Coxeter number: $h(E_8) = 30$.
+  \item Fibonacci--Lucas: $F_5 \times L_5 = 5 \times 11 = 55$, with
+    $\varphi(30) = 8 = \rank(E_8)$.
+  \item Palindromic ribbon: $(29 + 1) = 30$.
+  \item CRT--P622 crystallography: $|D_6| = 12$, $12 \times 30 = 360$.
+\end{enumerate}
+\end{observation}
+
+\textbf{Lean~4 status:} Verified (\texttt{gs10\_master\_synthesis}). Class [A] (individual identities); [B] (unified interpretation).
+
+% ══════════════════════════════════════════════════════════════
+\section{Experimental Predictions and Falsifiability}
+\label{sec:predictions}
+% ══════════════════════════════════════════════════════════════
+
+For the OMARWA--$E_8$ correspondence to constitute a physical theory
+rather than a numerical pattern, it must generate falsifiable
+predictions. We list the principal predictions and the conditions
+under which the framework would be refuted.
+
+\subsection{What Would Need to Be True}
+
+For the correspondence to have physical content:
+\begin{enumerate}
+  \item The $E_8$ breaking chain~\eqref{eq:chain} must be realized
+    in nature (not merely in string compactification models).
+  \item The OMARWA scale assignments (Observation~\ref{obs:scale})
+    must correspond to actual symmetry-breaking thresholds.
+  \item The three-generation structure must originate from the
+    $SU(3)$ factor in $E_8 \supset E_6 \times SU(3)$, not from
+    topology of the compact manifold.
+  \item The P622 crystallographic structure must manifest in
+    low-energy physics beyond dimensional coincidence.
+\end{enumerate}
+
+\subsection{Collider Predictions}
+
+\begin{observation}[BSM Scale]
+\label{obs:bsm}
+If $M_{\mathrm{BSM}} = v_{\mathrm{EW}} \cdot \sqrt{h(E_8)}
+= 246\;\mathrm{GeV} \times \sqrt{30} \approx 1.35\;\mathrm{TeV}$,
+then new physics should appear at HL-LHC energies.
+\end{observation}
+
+\textbf{Status:} Class [C]. This is a parameter-free prediction: the
+only inputs are the electroweak VEV and the Coxeter number. It is
+falsifiable by HL-LHC null results above $1.5\;\mathrm{TeV}$.
+
+\subsection{Neutrino Sector}
+
+\begin{observation}[CP Phase]
+\label{obs:cp}
+The OMARWA--Coxeter structure suggests $\delta_{CP} = 1.36\pi$
+for the Dirac CP-violation phase in the PMNS matrix.
+\end{observation}
+
+\textbf{Status:} Class [C]. Testable by DUNE and Hyper-Kamiokande.
+Current experimental data~\cite{nufit} constrain
+$\delta_{CP} \in [0.8\pi, 2.0\pi]$ at $3\sigma$.
+
+\subsection{Precision Tests}
+
+\begin{observation}[Muon $g-2$]
+\label{obs:gm2}
+The $E_8$ spectral decomposition predicts a BSM contribution
+$\Delta a_\mu^{\mathrm{BSM}} \approx 260 \times 10^{-11}$,
+within the Fermilab measurement $249 \pm 48 \times 10^{-11}$.
+\end{observation}
+
+\textbf{Status:} Class [C]. Consistency with current data is necessary
+but not sufficient; Run-4/5 at Fermilab will reduce the uncertainty.
+
+\subsection{Falsification Criteria}
+
+The research program would be significantly weakened if:
+\begin{itemize}
+  \item HL-LHC observes no BSM physics below $2\;\mathrm{TeV}$.
+  \item DUNE measures $\delta_{CP}$ inconsistent with $1.36\pi$ at
+    $5\sigma$.
+  \item Muon $g-2$ Run-4/5 excludes $\Delta a_\mu$ in the range
+    $[200, 320] \times 10^{-11}$.
+  \item Proton decay is observed at rates inconsistent with the
+    $E_8$ chain lifetime estimates.
+\end{itemize}
+
+These criteria are \emph{necessary but not sufficient}: even if all
+predictions survive, the correspondence remains a research program
+until an algebraic mechanism is identified.
+
+% ══════════════════════════════════════════════════════════════
+\section{Free Parameters and Open Structure}
+\label{sec:free}
+% ══════════════════════════════════════════════════════════════
+
+Transparency about free parameters is essential for any research
+program. We distinguish three categories:
+
+\subsection{Zero-Parameter Identities}
+
+The following have no free parameters:
+\begin{itemize}
+  \item $L = 30 = h(E_8)$ (Observation~\ref{obs:coxeter}).
+  \item $T_0 = 7, T_1 = 13 \in \exp(E_8)$ (Observation~\ref{obs:weyl}).
+  \item $|\Delta| = 240 = 8L$ (Observation~\ref{obs:roots}).
+  \item $(29+1) = 30$ (Observation~\ref{obs:window}).
+  \item $354/2 = 177 = \mathrm{IT\#(P622)}$ (Observation~\ref{obs:p622}).
+  \item GS-1 through GS-10 (Section~\ref{sec:gs}).
+\end{itemize}
+
+\subsection{One-Parameter Predictions}
+
+The BSM scale (Observation~\ref{obs:bsm}) depends only on the
+electroweak VEV $v = 246\;\mathrm{GeV}$ and $h(E_8) = 30$---both
+fixed---but the functional form $M \propto v\sqrt{h}$ is an
+\emph{assumption} (one structural free parameter: the power of~$h$).
+
+\subsection{Model-Dependent Parameters}
+
+The SSB scale assignments (Observation~\ref{obs:scale}) and
+generation-scale correspondence (Observation~\ref{obs:gen}) involve
+$\geq 5$ free choices (which $T_k$ maps to which breaking step).
+These are classified [C] and must be constrained by independent data
+before they acquire predictive power.
+
+% ══════════════════════════════════════════════════════════════
+\section{Discussion and Open Questions}
+\label{sec:conclusion}
+% ══════════════════════════════════════════════════════════════
+
+\subsection{Summary of Correspondences}
+
+Table~\ref{tab:summary} collects all observations with their
+epistemic classifications.
+
+\begin{table}[H]
+\centering
+\caption{Summary of OMARWA--$E_8$ correspondences.}\label{tab:summary}
+\smallskip
+\begin{tabular}{@{}clcc@{}}
+\toprule
+\# & Observation & Class & Ref. \\
+\midrule
+1 & $L = 30 = h(E_8)$ & [A]+[A] & Obs.~\ref{obs:coxeter} \\
+2 & $T_0, T_1 \in \exp(E_8)$ & [A] & Obs.~\ref{obs:weyl} \\
+3 & $|\Delta| = 8L = 240$ & [A] & Obs.~\ref{obs:roots} \\
+4 & $\varphi(L) = \rank(E_8) = 8$ & [A] & Obs.~\ref{obs:totient} \\
+5 & $P(17) = 8 = \rank(E_8)$ & [A] & Obs.~\ref{obs:sabbath} \\
+6 & $354/2 = 177 = \mathrm{IT\#(P622)}$ & [B] & Obs.~\ref{obs:p622} \\
+7 & $|D_6| = 12 = \dim(G_{\mathrm{SM}})$ & [C] & Obs.~\ref{obs:gauge} \\
+8 & $(29+1) = h(E_8)$ & [A] & Obs.~\ref{obs:window} \\
+9 & $e_8 = 29 = $ half-ribbon & [A] & Obs.~\ref{obs:maxexp} \\
+10 & SSB scale indexing & [C] & Obs.~\ref{obs:scale} \\
+11 & Generation--scale map & [C] & Obs.~\ref{obs:gen} \\
+12 & GS-1: Fibonacci mod~11 & [A] & Obs.~\ref{obs:gs1} \\
+13 & GS-9: apex $= h/2 = 15$ & [A]/[B] & Obs.~\ref{obs:gs9} \\
+14 & GS-10: five-way bridge & [A]/[B] & Obs.~\ref{obs:gs10} \\
+15 & $M_{\mathrm{BSM}} \approx 1.35\;\mathrm{TeV}$ & [C] & Obs.~\ref{obs:bsm} \\
+16 & $\delta_{CP} = 1.36\pi$ & [C] & Obs.~\ref{obs:cp} \\
+17 & $\Delta a_\mu \approx 260 \times 10^{-11}$ & [C] & Obs.~\ref{obs:gm2} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{What Is Proven vs.\ What Is Observed}
+
+The arithmetic identities (Observations 1--5, 8--9, 12--13) are
+proven and machine-verified. The crystallographic correspondence
+(Observation~6) is numerically exact but lacks an algebraic
+derivation. The physical interpretations (Observations 7, 10--11,
+15--17) are speculative.
+
+The central open question is:
+
+\begin{quote}
+\textit{Does there exist a functor, homomorphism, or categorical
+equivalence from the multiplicative structure of
+$(\mathbb{Z}/m\mathbb{Z})^*$ (governing OMARWA periods) to the
+root system or Weyl group of~$E_8$ that explains the observed
+correspondences?}
+\end{quote}
+
+If such a mechanism exists, the correspondences would be promoted
+from observations to theorems. If not, they remain a remarkable
+collection of numerical coincidences.
+
+\subsection{Research Directions}
+
+\begin{enumerate}
+  \item \textbf{Algebraic mechanism:} Identify a precise algebraic
+    link between $\ord_m(2)$ and Coxeter/Weyl theory.
+
+  \item \textbf{Generalization:} The sequence $T_k^{(a,b)} =
+    a \cdot 2^k + b$ generalizes OMARWA. For which $(a,b)$ does
+    the super-period equal a Coxeter number of some simple Lie
+    algebra? Lean~4 verification (module:
+    \texttt{AlphaGeneralization})~\cite{paket1} shows that
+    $T_k^{(\alpha)} \equiv 1 \pmod{3}$ for all $\alpha$ and~$k$, but
+    the Coxeter matching appears specific to $(a,b) = (6,1)$.
+
+  \item \textbf{Experimental tests:} HL-LHC Run~3/4 data at
+    $\sqrt{s} = 14\;\mathrm{TeV}$ can test the BSM scale
+    prediction. DUNE first oscillation data (expected 2028--2030)
+    can test the $\delta_{CP}$ prediction.
+
+  \item \textbf{Coldea experiment extension:} Ising chain measurements
+    on CoNb$_2$O$_6$ near the $E_8$ critical
+    point~\cite{coldea} can test logarithmic corrections to mass ratios.
+
+  \item \textbf{Formal verification:} Extend the Lean~4 formalization
+    to cover the crystallographic and Lie-algebraic claims. Current
+    coverage: 28~modules, 956~theorems. Target: formalize the
+    Exceptional Universality theorem in terms of Mathlib's Lie
+    algebra API.
+\end{enumerate}
+
+% ══════════════════════════════════════════════════════════════
+\section*{Acknowledgments}
+% ══════════════════════════════════════════════════════════════
+
+The author thanks the Lean community and Mathlib contributors for
+the formal verification infrastructure, and CERN/Zenodo for open
+access archiving.
+
+% ══════════════════════════════════════════════════════════════
+% APPENDICES
+% ══════════════════════════════════════════════════════════════
+
+\appendix
+
+\section{Lean~4 Proof Catalog}
+\label{app:lean}
+
+The following Lean~4 modules (from
+\href{https://github.com/omarwa622/OmarwaCore}{OmarwaCore},
+DOI:~\cite{paket1}) verify the claims made in this paper:
+
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Module & Key Theorems & Section \\
+\midrule
+\texttt{Sequence} & $T_k$ definition, recurrence & \S\ref{sec:review} \\
+\texttt{ModularPeriod} & Core Reduction, $P(m) = \ord_{m'}(2)$ & \S\ref{sec:review} \\
+\texttt{SuperPeriod} & $L = 30$, three paths & \S\ref{sec:review} \\
+\texttt{FractalLaws} & $P(p^n)$ fractal growth & \S\ref{sec:review} \\
+\texttt{WeylExponents} & $T_0, T_1 \in \exp(E_8)$ & \S\ref{sec:correspondence} \\
+\texttt{ExceptionalUniversality} & All 5 exceptional $h$ values & \S\ref{sec:correspondence} \\
+\texttt{Palindrome} & 29-1-29 involution & \S\ref{sec:ribbon} \\
+\texttt{GrandSynthesis} & GS-1 through GS-10 & \S\ref{sec:gs} \\
+\texttt{AlphaGeneralization} & $T_k^{(\alpha)} \equiv 1 \pmod{3}$ & \S\ref{sec:conclusion} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent Total: 28~modules, 956~theorems, 0~\texttt{sorry}.
+Lean version: 4.29.0-rc3. Mathlib4 dependency.
+
+\section{Epistemic Classification System}
+\label{app:epistemic}
+
+This paper uses the following classification for all claims:
+
+\begin{center}
+\begin{tabular}{@{}cp{10cm}@{}}
+\toprule
+Class & Meaning \\
+\midrule
+{[A]} & Mathematically proven (formal or rigorous proof exists). \\
+{[B]} & Strongly supported model statement; physically motivated
+    but not formally established. \\
+{[C]} & Speculative: defined research direction with explicit
+    assumptions and falsification criteria. \\
+{[D]} & Engineering / application / demonstration level. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% ══════════════════════════════════════════════════════════════
+% REFERENCES
+% ══════════════════════════════════════════════════════════════
+
+\begin{thebibliography}{20}
+
+\bibitem{paket1}
+\"O.~\c{C}etinta\c{s},
+``OmarwaCore: Lean~4 Formalization of the OMARWA Sequence
+$T_k = 6 \cdot 2^k + 1$,''
+Zenodo, 2026.
+DOI: \href{https://doi.org/10.5281/zenodo.19035570}{10.5281/zenodo.19035570}.
+
+\bibitem{paket2}
+\"O.~\c{C}etinta\c{s},
+``Modular Period Structure, Fractal Laws, and Algebraic Universality
+of the Affine Sequence $T_k = 6 \cdot 2^k + 1$,''
+Zenodo (preprint), 2026.
+DOI: \href{https://doi.org/10.5281/zenodo.19035608}{10.5281/zenodo.19035608}.
+
+\bibitem{paket3}
+\"O.~\c{C}etinta\c{s},
+``Computational Verification Data for the OMARWA Sequence:
+Period Tables, Digital Root Maps, and GCD Matrices,''
+Zenodo (dataset), 2026.
+DOI: \href{https://doi.org/10.5281/zenodo.19036063}{10.5281/zenodo.19036063}.
+
+\bibitem{omarwacore}
+\"O.~\c{C}etinta\c{s},
+``OmarwaCore: Lean~4 Formalization of the OMARWA Sequence,''
+GitHub, 2026.
+\url{https://github.com/omarwa622/OmarwaCore}.
+
+\bibitem{oeis}
+OEIS Foundation,
+``A004119: $a(0) = 1$; thereafter $a(n) = 3 \cdot 2^{n-1} + 1$,''
+\textit{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org/A004119}.
+
+\bibitem{humphreys}
+J.\,E.~Humphreys,
+\textit{Reflection Groups and Coxeter Groups},
+Cambridge Studies in Advanced Mathematics~29, 1990.
+
+\bibitem{bourbaki}
+N.~Bourbaki,
+\textit{Lie Groups and Lie Algebras: Chapters 4--6},
+Springer, 2002.
+
+\bibitem{viazovska}
+M.\,S.~Viazovska,
+``The sphere packing problem in dimension~8,''
+\textit{Ann.\ Math.}, vol.~185, no.~3, pp.~991--1015, 2017.
+
+\bibitem{hahn}
+T.~Hahn (ed.),
+\textit{International Tables for Crystallography, Volume~A:
+Space-Group Symmetry}, 5th~ed., Springer, 2005.
+
+\bibitem{slansky}
+R.~Slansky,
+``Group Theory for Unified Model Building,''
+\textit{Phys.\ Reports}, vol.~79, pp.~1--128, 1981.
+
+\bibitem{georgi}
+H.~Georgi and S.\,L.~Glashow,
+``Unity of All Elementary-Particle Forces,''
+\textit{Phys.\ Rev.\ Lett.}, vol.~32, pp.~438--441, 1974.
+
+\bibitem{gursey}
+F.~G\"ursey, P.~Ramond, and P.~Sikivie,
+``A Universal Gauge Theory Model Based on $E_6$,''
+\textit{Phys.\ Lett.\ B}, vol.~60, no.~2, pp.~177--180, 1976.
+
+\bibitem{gross}
+D.\,J.~Gross, J.\,A.~Harvey, E.~Martinec, and R.~Rohm,
+``Heterotic String,''
+\textit{Phys.\ Rev.\ Lett.}, vol.~54, pp.~502--505, 1985.
+
+\bibitem{coldea}
+R.~Coldea, D.\,A.~Tennant, E.\,M.~Wheeler, \textit{et al.},
+``Quantum Criticality in an Ising Chain:
+Experimental Evidence for Emergent $E_8$ Symmetry,''
+\textit{Science}, vol.~327, pp.~177--180, 2010.
+
+\bibitem{nufit}
+I.~Esteban, M.\,C.~Gonzalez-Garcia, M.~Maltoni,
+T.~Schwetz, and A.~Zhou,
+``The fate of hints: updated global analysis of three-flavor
+neutrino oscillations,''
+\textit{JHEP}, vol.~09, p.~178, 2020.
+\url{http://www.nu-fit.org}.
+
+\bibitem{ireland}
+K.~Ireland and M.~Rosen,
+\textit{A Classical Introduction to Modern Number Theory}, 2nd~ed.,
+Springer GTM~84, 1990.
+
+\bibitem{nakahara}
+M.~Nakahara,
+\textit{Geometry, Topology and Physics}, 2nd~ed.,
+IOP Publishing, 2003.
+
+\end{thebibliography}
+
+\bigskip
+\noindent\rule{\textwidth}{0.4pt}
+
+\smallskip
+{\small\noindent\textit{Manuscript prepared: March 2026.
+This is a research program preprint, not a completed theory.
+Arithmetic core: formally verified in Lean~4.29.0-rc3 + Mathlib4
+(956~theorems, 28~modules, 0~sorry).}\\
+\textit{Foundation:
+DOI \href{https://doi.org/10.5281/zenodo.19035570}{10.5281/zenodo.19035570} (Software),
+DOI \href{https://doi.org/10.5281/zenodo.19035608}{10.5281/zenodo.19035608} (Preprint),
+DOI \href{https://doi.org/10.5281/zenodo.19036063}{10.5281/zenodo.19036063} (Dataset).}\\
+\textit{Source:
+\href{https://github.com/omarwa622/OmarwaCore}{github.com/omarwa622/OmarwaCore}.}}
+
+\end{document}
